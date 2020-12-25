@@ -1,11 +1,11 @@
 package com.iquantex.common.cds.web.transfer;
 
-import com.iquantex.portal.web.api.PageOutDTO;
 import com.iquantex.common.cds.web.constant.PersonGenderEnum;
 import com.iquantex.common.cds.web.dao.model.Person;
 import com.iquantex.common.cds.web.dto.AddPersonInDTO;
 import com.iquantex.common.cds.web.dto.PersonOutDTO;
 import com.iquantex.common.cds.web.dto.UpdatePersonInDTO;
+import com.iquantex.portal.web.api.PageOutDTO;
 import java.util.ArrayList;
 import org.springframework.util.CollectionUtils;
 

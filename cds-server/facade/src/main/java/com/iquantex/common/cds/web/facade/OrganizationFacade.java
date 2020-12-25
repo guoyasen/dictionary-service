@@ -1,9 +1,9 @@
 package com.iquantex.common.cds.web.facade;
 
-import com.iquantex.portal.web.api.Response;
 import com.iquantex.common.cds.web.dto.OrganizationCreateInDTO;
 import com.iquantex.common.cds.web.dto.OrganizationOutDTO;
 import com.iquantex.common.cds.web.dto.OrganizationUpdateInDTO;
+import com.iquantex.portal.web.api.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

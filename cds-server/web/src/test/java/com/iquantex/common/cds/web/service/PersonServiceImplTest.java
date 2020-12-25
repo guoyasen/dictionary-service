@@ -1,10 +1,10 @@
 package com.iquantex.common.cds.web.service;
 
-import com.iquantex.portal.web.api.PageOutDTO;
-import com.iquantex.portal.web.query.service.QueryService;
 import com.iquantex.common.cds.web.dao.model.Person;
 import com.iquantex.common.cds.web.dto.AddPersonInDTO;
 import com.iquantex.common.cds.web.dto.UpdatePersonInDTO;
+import com.iquantex.portal.web.api.PageOutDTO;
+import com.iquantex.portal.web.query.service.QueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
