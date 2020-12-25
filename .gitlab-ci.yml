@@ -1,0 +1,118 @@
+stages:
+  - check
+  - sonar
+  - build
+  - deploy
+
+image: hub.iquantex.com/base/maven:3.6.3-jdk8-helm3
+
+
+check:
+  stage: check
+  script:
+    - cd cds-server
+    - mvn compile
+    - sh ../devops/tools/check_format.sh
+  tags:
+    - phx-dev
+
+sonar:
+  stage: sonar
+  script:
+    - cd cds-server
+    - mvn versions:set -DoldVersion='*' -DnewVersion=${CI_BUILD_REF_NAME}-SNAPSHOT -DprocessAllModules=true -DallowSnapshots=true
+    - mvn test sonar:sonar
+    - mvn versions:revert
+  tags:
+    - phx-dev
+
+build_server:
+  stage: build
+  #before_script:  # 因为使用了maven docker插件，因此这里无需进行login操作，下面logout也可以去掉.
+  #  - docker login -u 'robot$common' -p "${CI_REGISTRY_PASSWORD}" ${CI_REGISTRY}
+  script:
+    - cd cds-server
+    - mvn versions:set -DoldVersion='*' -DnewVersion=${CI_BUILD_REF_NAME}-SNAPSHOT -DprocessAllModules=true -DallowSnapshots=true
+    - mvn deploy -Dmaven.test.skip=true
+    - mvn -pl web docker:build -DpushImage -DdockerImageTags=${CI_COMMIT_REF_NAME} -Dmaven.test.skip=true -Dharbor.registry=${CI_REGISTRY}
+    - mvn versions:revert
+    - mvn clean
+  #after_script:
+  #  - docker logout ${CI_REGISTRY}
+  only:
+    - /(feat\-)+.*$/
+    - dev
+    - release
+    - master
+    - tags
+  tags:
+    - phx-dev
+  retry: 2
+
+build_ui:
+  stage: build
+  image: hub.iquantex.com/base/node:12-alpine-with-tools
+  script:
+    - npm config set registry http://10.116.18.70:8081/content/groups/npm-quantex-group/
+    #- npm config set sass_binary_site http://static.bj.iquantex.com/node/node-sass/    #此插件已经配置在runner上,这里无需指定.
+    - chmod +x ./cds-ui/build.sh
+    #- ./cds-ui/build.sh && cd ./cds-ui/docker && docker build -t ${CI_REGISTRY}/common/cds-ui:$CI_COMMIT_REF_NAME .     #将命令拆分，因为整行命令作为一个整体执行时返回值总是为0，但是中间npm build失败时可能不会中断CI，容易导致构建的镜像是无效的.
+    - ./cds-ui/build.sh
+    - cd ./cds-ui/docker && docker build -t ${CI_REGISTRY}/common/cds-ui:$CI_COMMIT_REF_NAME .
+    - docker login -u 'robot$common' -p "${CI_REGISTRY_PASSWORD}" ${CI_REGISTRY}
+    - docker push ${CI_REGISTRY}/common/cds-ui:${CI_COMMIT_REF_NAME}
+  after_script:
+    - docker logout ${CI_REGISTRY}
+  only:
+    - /(feat\-)+.*$/
+    - dev
+    - release
+    - master
+    - tags
+  tags:
+    - phx-dev
+
+deploy:
+  stage: deploy
+  script: |
+    helm upgrade --kubeconfig devops/helm/.kube/config-bj-dev cds-${CI_BUILD_REF_NAME} \
+    --install \
+    --create-namespace \
+    -n cds-${CI_BUILD_REF_NAME} \
+    --set global.versionOverride=${CI_BUILD_REF_NAME} \
+    --set global.commit_id=${CI_COMMIT_SHA} \
+    --set global.domain=.${CI_BUILD_REF_NAME}.bj.iquantex.com \
+    devops/helm/
+  only:
+    - dev
+    - release
+  tags:
+    - phx-dev
+
+deploy_feat:
+  stage: deploy
+  script: |
+    helm upgrade --kubeconfig devops/helm/.kube/config-bj-dev cds-${CI_BUILD_REF_NAME} \
+    --install \
+    --create-namespace \
+    -n cds-${CI_BUILD_REF_NAME} \
+    --set global.versionOverride=${CI_BUILD_REF_NAME} \
+    --set global.commit_id=${CI_COMMIT_SHA} \
+    --set global.domain=.${CI_BUILD_REF_NAME}.bj.iquantex.com \
+    devops/helm/
+  only:
+    - /(feat\-)+.*$/
+  when: manual
+  tags:
+    - phx-dev
+
+deploy_helm:
+  stage: deploy
+  script:
+    - helm repo remove quantex || echo "no quantex repo"
+    - helm repo add quantex http://chart.iquantex.com
+    - helm push --version="${CI_BUILD_REF_NAME}"  devops/helm/ quantex
+  only:
+    - tags
+  tags:
+    - phx-dev

@@ -1,0 +1,77 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# database
+spring:
+  application:
+    name: cds-web
+  flyway:
+    enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:cds;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;Mode=MySQL
+    username: root
+    password:
+    hikari:
+      pool-name: Hikari
+      auto-commit: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# 日志
+logging:
+  level:
+    root: info
+
+# mybatis plus 配置
+mybatis-plus:
+  type-enums-package: com.iquantex.common.cds.web.constant
+
+
+# eureka
+service-center:
+  url: localhost:8761
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://${service-center.url}/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    appname: ${spring.application.name}
+#请求和响应GZIP压缩支持
+feign:
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+#请求处理的超时时间
+ribbon:
+  # 同一实例最大重试次数，不包括首次调用
+  MaxAutoRetries: 1
+  # 重试其他实例的最大重试次数，不包括首次所选的server
+  MaxAutoRetriesNextServer: 2
+  # 是否所有操作都重试
+  OkToRetryOnAllOperations: false
+  # 是否所有操作都进行重试
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

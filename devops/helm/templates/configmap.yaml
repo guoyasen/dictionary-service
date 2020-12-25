@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cds-gateway
+data:
+  application.yml: |-
+{{ (.Files.Get "application.yml") | indent 4 }}

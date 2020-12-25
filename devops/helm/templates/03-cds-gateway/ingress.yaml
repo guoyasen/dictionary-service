@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.cds_gateway.name | quote }}
+spec:
+  rules:
+    - host: {{ .Values.global.gateway.hostName }}{{ .Values.global.domain }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ .Values.cds_gateway.name | quote }}
+              servicePort: 8080
+            path: /

@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.cds_web.name | quote }}
+  labels:
+{{ include "cds.labels" . | indent 4 }}
+    app.name: {{ .Values.cds_web.name | quote }}
+spec:
+  replicas: {{ .Values.cds_web.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "cds.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.name: {{ .Values.cds_web.name | quote }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "cds.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.name: {{ .Values.cds_web.name | quote }}
+        app: {{ .Values.cds_web.name | quote }}
+        apptype: java
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Values.cds_web.name | quote }}
+          image: "{{ .Values.cds_web.image.repository }}:{{ include "cds.tag" . }}"
+          imagePullPolicy: {{ .Values.cds_web.image.pullPolicy }}
+          ports:
+            - name: web
+              containerPort: {{ .Values.cds_web.port }}
+              protocol: TCP
+          env:
+            # base
+            - name: TZ
+              value: "Asia/Shanghai"
+            - name: SW_AGENT_NAME
+              value: {{ .Values.cds_web.name | quote }}
+            - name: euerka.client.enabled
+              value: "true"
+            - name: service-center.url
+              value: {{ .Values.global.eureka.url }}
+            - name: SERVER.PORT
+              value: {{ .Values.cds_web.port | quote }}
+            - name: SPRING.APPLICATION.NAME
+              value: {{ .Values.cds_web.name | quote }}
+            - name: SPRING.DATASOURCE.URL
+              value: {{ .Values.global.cdsdb.url | quote }}
+            - name: SPRING.DATASOURCE.USERNAME
+              value: {{ .Values.global.cdsdb.username | quote }}
+            - name: SPRING.DATASOURCE.PASSWORD
+              value: {{ .Values.global.cdsdb.password | quote }}
+            - name: SPRING.DATASOURCE.DRIVER-CLASS-NAME
+              value: {{ .Values.global.cdsdb.type | quote }}
+          resources:
+            {{- toYaml .Values.cds_web.resources | nindent 12 }}
+      {{- with .Values.cds_web.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.cds_web.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.cds_web.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.cds_web.name | quote }}
+  labels:
+{{ include "cds.labels" . | indent 4 }}
+    app.name: {{ .Values.cds_web.name | quote }}
+spec:
+  type: {{ .Values.cds_web.service.type }}
+  ports:
+    - name: {{ .Values.cds_web.name | quote }}
+      port: 80
+      targetPort: {{ .Values.cds_web.port }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "cds.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.name: {{ .Values.cds_web.name | quote }}
+

@@ -1,0 +1,29 @@
+labels:
+  io.cattle.role: project
+categories:
+  - Application
+questions:
+  - variable: global.domain
+    default: ".dev.bj.iquantex.com"
+    description: "The cds subdomain ,For Example: .dev.bj.iquantex.com"
+    type: string
+    label: subdomain
+    group: "CDS CONFIG"
+  - variable: global.gateway.client_id
+    default: "portal_gateway"
+    description: "client id"
+    type: string
+    label: clientId
+    group: "CDS CONFIG"
+  - variable: global.gateway.client_secret
+    default: "changeit"
+    description: "client secret"
+    type: string
+    label: clientSecret
+    group: "CDS CONFIG"
+  - variable: global.eureka.url
+    default: "eureka:80"
+    description: "eureka url"
+    type: string
+    label: eureka
+    group: "CDS CONFIG"

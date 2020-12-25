@@ -1,0 +1,17 @@
+*.iml
+target
+logs
+node_modules
+package-lock.json
+static
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out
+.DS_Store
+
+### dist
+cds-ui/dist

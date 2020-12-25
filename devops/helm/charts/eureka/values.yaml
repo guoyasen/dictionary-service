@@ -1,0 +1,13 @@
+
+
+
+image:
+  registry: harbor.iquantex.com/common/eureka-service-center
+  tag: master
+  imagePullPolicy: Always
+
+resources:
+  requests:
+    memory: "256Mi"
+  limits:
+    memory: "512Mi"

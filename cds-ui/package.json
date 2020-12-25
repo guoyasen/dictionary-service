@@ -1,0 +1,41 @@
+{
+  "name": "cds",
+  "version": "1.0.0",
+  "description": "portal helloword ui",
+  "main": "",
+  "keywords": [],
+  "scripts": {
+    "prestart": "rimraf dist && quantex-scripts theme --env=development",
+    "prespa:start": "rimraf dist && quantex-scripts theme --env=development",
+    "start": "cross-env NODE_ENV=development quantex-scripts start",
+    "spa:start": "cross-env NODE_ENV=development SINGLE_SPA=true quantex-scripts start",
+    "predist": "rimraf dist && rimraf node_modules/.cache/dist-cache && npm run dll-prod && quantex-scripts theme",
+    "prespa:dist": "rimraf dist && rimraf node_modules/.cache/dist-cache && npm run dll-prod && quantex-scripts theme",
+    "dist": "cross-env NODE_ENV=production quantex-scripts build",
+    "spa:dist": "cross-env NODE_ENV=production SINGLE_SPA=true quantex-scripts build",
+    "start-components-debug": "npm run start --debugc",
+    "analyze": "npm run dist --report",
+    "commitmsg": "validate-commit-msg",
+    "dll": "quantex-scripts dll --env=development",
+    "dll-prod": "quantex-scripts dll --env=production",
+    "theme": "quantex-scripts theme",
+    "lint": "eslint --ext .js,.jsx app",
+    "lint:fix": "eslint --fix --ext .js,.jsx app",
+    "precommit": "lint-staged",
+    "prettier:check": "prettier -l app/**/*.{js,jsx,scss,less}",
+    "prettier:fix": "prettier --write app/**/*.{js,jsx,scss,less}"
+  },
+  "lint-staged": {
+    "app/**/*.{js,jsx}": [
+      "eslint --color",
+      "git add"
+    ],
+    "app/**/*.less": "stylelint --syntax=less"
+  },
+  "repository": {},
+  "dependencies": {
+    "@gza/quantex-plugin-theme-hrxt-white": "^1.0.4",
+    "@gza/quantex-plugin-theme-white": "^2.1.2",
+    "@gza/quantex-scaffold": "^2.0.2"
+  }
+}

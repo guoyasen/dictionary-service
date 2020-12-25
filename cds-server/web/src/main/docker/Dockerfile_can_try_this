@@ -1,0 +1,21 @@
+FROM hub.iquantex.com/base/openjdk:8u242-jdk-alpine
+FROM harbor.iquantex.com/phoenix/prometheus-agent:1.0.0 as agent
+ 
+LABEL MAINTAINER="shengquan < shengquan.bu@iquantex.com >"
+ 
+COPY entrypoint.sh /entrypoint.sh
+
+COPY --from=agent /prometheus-agent/ /opt/deployments/prometheus-agent
+COPY  app.jar /opt/deployments/app.jar
+ 
+WORKDIR /opt/deployments
+ 
+RUN chmod +x /entrypoint.sh \
+    && chgrp -R 0 /opt/deployments/ \
+    && chmod -R g=u /opt/deployments \
+    && addgroup daemon root \
+    && chmod g+w /etc/passwd
+ 
+ENTRYPOINT ["/entrypoint.sh"]
+ 
+CMD ["java","-jar", "-javaagent:/opt/deployments/prometheus-agent/jmx_prometheus_javaagent.jar=8888:/opt/deployments/prometheus-agent/config.yml","-XX:+UnlockExperimentalVMOptions","-XX:+UseCGroupMemoryLimitForHeap","-XX:MaxRAMFraction=2","-XshowSettings:vm","/opt/deployments/app.jar"]

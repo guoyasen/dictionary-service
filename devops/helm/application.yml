@@ -1,0 +1,64 @@
+auth-path: portal-auth
+spring:
+  application:
+    name: cds-gateway
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+            allowCredentials: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+        - RemoveResponseHeader=X-Frame-Options
+      routes:
+        - id: cds-ui
+          uri: http://cds-ui/
+          predicates:
+            - Path=/cds/**
+        - id: cds-web
+          uri: http://cds-web/
+          predicates:
+            - Path=/cds-web/**
+          filters:
+            - CookieTokenRelay=
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+  security:
+    oauth2:
+      client:
+        registration:
+          gateway:
+            provider: uaa
+            client-id: portal_gateway
+            client-secret: changeit
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/${spring.application.name}/login/oauth2/code/{registrationId}"
+            scope: api-read,api-write
+        provider:
+          uaa:
+            authorization-uri: ${auth-host}/${auth-path}/oauth/authorize
+            token-uri: ${auth-host}/${auth-path}/oauth/token
+            user-info-uri: ${auth-host}/${auth-path}/api/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: ${auth-host}/${auth-path}/.well-known/jwks.json
+quantex:
+  sso:
+    cookie-timeout-seconds: 8640000
+    enabled: true
+    login-success: /cds
+    logout-success: ${auth-host}/${auth-path}/logout?service=${gateway-host}/${gateway-name}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+debug: true
+server:
+  servlet:
+    context-path: /${spring.application.name}

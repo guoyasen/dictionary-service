@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka
+spec:
+  selector:
+    matchLabels:
+      app: eureka
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: eureka
+    spec:
+      containers:
+      - name: eureka
+        image: "{{ .Values.image.registry }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.imagePullPolicy | quote }}
+        resources:
+          limits:
+            memory: {{ .Values.resources.limits.memory | quote }}
+          requests:
+            memory: {{ .Values.resources.requests.memory | quote }}
+        env:
+        - name: TZ
+          value: Asia/Shanghai
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka
+spec:
+  selector:
+    app: eureka
+  ports:
+    - port: 80
+      targetPort: 80
+  type: NodePort

@@ -1,0 +1,7 @@
+dependencies:
+  - name: eureka
+    version: 0.1.1
+    repository: http://10.116.18.93:8848/
+  - name: mysql
+    version: 1.0.3
+    repository: http://10.116.18.93:8848/

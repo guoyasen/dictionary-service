@@ -1,0 +1,107 @@
+# Default values for portal-helloworld.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+
+## 全局配置"
+global:
+  versionOverride: ""
+  commit_id: default_commit_id
+  domain: ".test.bj.iquantex.com"
+  cdsdb:
+    type: com.mysql.jdbc.Driver
+    url: jdbc:mysql://mysql:3306/cds?useUnicode=true&characterEncoding=utf-8&verifyServerCertificate=false&useSSL=false&requireSSL=false
+    username: root
+    password: "fw@2014"
+  sso:
+    hostName: "sso"
+  gateway:
+    hostName: "cds-gateway"
+    client_id: portal_gateway
+    client_secret: changeit
+  eureka:
+    url: "eureka:80"
+
+## 依赖服务配置
+cds_ui:
+  replicaCount: 1
+  name: cds-ui
+  image:
+    repository: harbor.iquantex.com/common/cds-ui
+    pullPolicy: Always
+  service:
+    type: NodePort
+  env: []
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+cds_web:
+  port: 8080
+  replicaCount: 1
+  name: cds-web
+  image:
+    repository: harbor.iquantex.com/common/cds-web
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+  env: []
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 700m
+      memory: 512Mi
+  ingress:
+    enabled: true
+    annotations: {}
+    tls: []
+
+cds_gateway:
+  port: 8080
+  replicaCount: 2
+  name: cds-gateway
+  useDefaultImage: true
+  image:
+    repository: harbor.iquantex.com/kunlun/spring-cloud-gateway
+    tag: 1.2.6
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+  env: []
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 700m
+      memory: 512Mi
+  ingress:
+    enabled: true
+    annotations: {}
+    tls: []
+
+
+
+
+
+## k8s公共配置
+### 镜像拉取权限配置
+imagePullSecrets: []
+
+
