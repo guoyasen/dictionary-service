@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("SYS_DICT_DATA_DEF")
+@TableName("sys_dict_data_def")
 public class SysDictDataDef implements Serializable {
 
     private static final long serialVersionUID = 1L;

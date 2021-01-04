@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("SYS_DICT_DATA")
+@TableName("sys_dict_data")
 public class SysDictData implements Serializable {
 
     private static final long serialVersionUID = 1L;
