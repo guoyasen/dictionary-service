@@ -1,85 +1,82 @@
 package com.iquantex.common.cds.web.dao.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class User implements Serializable {
 
-    private String id;
+  private String id;
 
-    private String code;
+  private String code;
 
-    private String name;
+  private String name;
 
-    private String password;
+  private String password;
 
-    private String roleCodes;
+  private String roleCodes;
 
-    private String roleName;
+  private String roleName;
 
-    private String status;
+  private String status;
 
-    public String getId() {
-        return id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getCode() {
-        return code;
-    }
+  public String getCode() {
+    return code;
+  }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+  public void setCode(String code) {
+    this.code = code;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public String getRoleCodes() {
-        return roleCodes;
-    }
+  public String getRoleCodes() {
+    return roleCodes;
+  }
 
-    public void setRoleCodes(String roleCodes) {
-        this.roleCodes = roleCodes;
-    }
+  public void setRoleCodes(String roleCodes) {
+    this.roleCodes = roleCodes;
+  }
 
-    public String getRoleName() {
-        return roleName;
-    }
+  public String getRoleName() {
+    return roleName;
+  }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
+  public void setRoleName(String roleName) {
+    this.roleName = roleName;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 }

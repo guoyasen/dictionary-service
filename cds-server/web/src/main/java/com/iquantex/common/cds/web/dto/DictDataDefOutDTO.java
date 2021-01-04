@@ -12,18 +12,18 @@ import lombok.Data;
 @ApiModel("字典子项信息")
 @Data
 public class DictDataDefOutDTO {
-    @ApiModelProperty(value = "字典详情主键ID")
-    private Long id;
+  @ApiModelProperty(value = "字典详情主键ID")
+  private Long id;
 
-    @ApiModelProperty(value = "字典项ID")
-    private Long sysDictDataId;
+  @ApiModelProperty(value = "字典项ID")
+  private Long sysDictDataId;
 
-    @ApiModelProperty(value = "字典值")
-    private String value;
+  @ApiModelProperty(value = "字典值")
+  private String value;
 
-    @ApiModelProperty(value = "字典翻译")
-    private String name;
+  @ApiModelProperty(value = "字典翻译")
+  private String name;
 
-    @ApiModelProperty(value = "字典英文值")
-    private String enName;
+  @ApiModelProperty(value = "字典英文值")
+  private String enName;
 }

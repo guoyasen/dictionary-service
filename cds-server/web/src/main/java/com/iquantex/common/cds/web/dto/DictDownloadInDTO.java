@@ -6,13 +6,13 @@ package com.iquantex.common.cds.web.dto;
  */
 public class DictDownloadInDTO {
 
-    private String appId;
+  private String appId;
 
-    public String getAppId() {
-        return appId;
-    }
+  public String getAppId() {
+    return appId;
+  }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
+  public void setAppId(String appId) {
+    this.appId = appId;
+  }
 }

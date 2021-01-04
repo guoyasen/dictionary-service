@@ -1,11 +1,8 @@
 package com.iquantex.common.cds.web.dto;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 /**
  * @author lan
