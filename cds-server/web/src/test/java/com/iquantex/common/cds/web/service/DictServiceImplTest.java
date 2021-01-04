@@ -5,6 +5,9 @@ import com.iquantex.common.cds.web.dao.model.SysDictDataDef;
 import com.iquantex.common.cds.web.dto.*;
 import com.iquantex.portal.web.api.PageOutDTO;
 import com.iquantex.portal.web.query.service.QueryService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,10 +15,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author yanliang
@@ -30,8 +29,7 @@ public class DictServiceImplTest {
 
   @Autowired private QueryService queryService;
 
-  @Autowired
-  private IdGeneratorService idGeneratorService;
+  @Autowired private IdGeneratorService idGeneratorService;
 
   @Test
   public void query_test() {
@@ -53,7 +51,6 @@ public class DictServiceImplTest {
     data.add(dictDataDefDTO);
     inDTO.setData(data);
 
-
     // 新增 & 校验
     dictDataService.addDictData(inDTO);
     PageOutDTO<SysDictData> sysDictData = queryService.query(query, SysDictData.class);
@@ -72,23 +69,25 @@ public class DictServiceImplTest {
     updataDef.setValue("test");
     dataUpdate.add(updataDef);
     updateInDTO.setData(dataUpdate);
-    dictDataService.updateDictData(String.valueOf(sysDictData.getList().get(2).getId()), updateInDTO);
+    dictDataService.updateDictData(
+        String.valueOf(sysDictData.getList().get(2).getId()), updateInDTO);
     PageOutDTO<SysDictData> sysDictData1 = queryService.query(query, SysDictData.class);
     PageOutDTO<SysDictDataDef> sysDictDataDef1 = queryService.query(query, SysDictDataDef.class);
-//    Assert.assertEquals(19, sysDictData1.getList().get(0).ge().intValue());
-//    Assert.assertEquals(19, persons1.getList().get(0).getAge().intValue());
+    //    Assert.assertEquals(19, sysDictData1.getList().get(0).ge().intValue());
+    //    Assert.assertEquals(19, persons1.getList().get(0).getAge().intValue());
 
     // 删除 & 校验
-//    dictDataService.deleteDictData("gys_test");
-//    PageOutDTO<SysDictData> sysDictData2 = queryService.query(query, SysDictData.class);
-//    PageOutDTO<SysDictDataDef> sysDictDataDef2 = queryService.query(query, SysDictDataDef.class);
-//    Assert.assertEquals(0, sysDictData2.getTotalRecord());
-//    Assert.assertEquals(0, sysDictDataDef2.getTotalRecord());
+    //    dictDataService.deleteDictData("gys_test");
+    //    PageOutDTO<SysDictData> sysDictData2 = queryService.query(query, SysDictData.class);
+    //    PageOutDTO<SysDictDataDef> sysDictDataDef2 = queryService.query(query,
+    // SysDictDataDef.class);
+    //    Assert.assertEquals(0, sysDictData2.getTotalRecord());
+    //    Assert.assertEquals(0, sysDictDataDef2.getTotalRecord());
   }
 
   @Test
-  public void testIdGen(){
+  public void testIdGen() {
     Date date = new Date();
-      System.out.println(idGeneratorService.nextId(date.getTime()));
+    System.out.println(idGeneratorService.nextId(date.getTime()));
   }
 }
