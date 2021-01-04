@@ -111,11 +111,9 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     @Transactional
     @Override
     @Valid
-    public void updateDictData(String dictKey, UpdateDictDataDTO inParam) {
-        QueryWrapper<SysDictData> wrapper = new QueryWrapper<>();
-        wrapper.eq(SysDictData.DICT_KEY, dictKey)
-                .eq(SysDictData.APP_ID, inParam.getAppId());
-        SysDictData dictData = dao.selectOne(wrapper);
+    public void updateDictData(String dictId, UpdateDictDataDTO inParam) {
+
+        SysDictData dictData = dao.selectById(Long.valueOf(dictId));
 //        SysDictData dictData = dao.selectById(dictKey);
         if (null == dictData) {
             throw new AppException(CdsDictErrorCode.CDSDICT0003);
@@ -126,12 +124,12 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 
         // 更新字典信息
         dictData = new SysDictData();
-        dictData.setDictKey(dictKey);
+        dictData.setDictKey(dictData.getDictKey());
         dictData.setRemark(inParam.getRemark());
         dictData.setDictValueType(inParam.getDictValueType());
         dictData.setDictName(inParam.getDictName());
         dictData.setAppId(inParam.getAppId());
-        dictData.setId(dictData.getId());
+        dictData.setId(Long.valueOf(dictId));
         // TODO 如何获取用户ID
         User user = SysUserSession.get().getUser();
 //        dictData.setModifierId(SessionData.getUserId());
@@ -146,7 +144,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
         defWrapper.eq(SysDictDataDef.SYS_DICT_DATA_ID, dictData.getId());
         dictDataDefDao.delete(defWrapper);
         // 子项入库
-        insertDictDef(props, dictKey, dictData.getId());
+        insertDictDef(props, dictData.getDictKey(), dictData.getId());
     }
 
     /**

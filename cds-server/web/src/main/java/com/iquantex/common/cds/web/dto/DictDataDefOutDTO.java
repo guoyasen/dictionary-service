@@ -1,9 +1,8 @@
 package com.iquantex.common.cds.web.dto;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 /**
  * @author lan
@@ -13,13 +12,18 @@ import java.time.LocalDateTime;
 @ApiModel("字典子项信息")
 @Data
 public class DictDataDefOutDTO {
-  private Long id;
+    @ApiModelProperty(value = "字典详情主键ID")
+    private Long id;
 
-  private Long sysDictDataId;
+    @ApiModelProperty(value = "字典项ID")
+    private Long sysDictDataId;
 
-  private String value;
+    @ApiModelProperty(value = "字典值")
+    private String value;
 
-  private String name;
+    @ApiModelProperty(value = "字典翻译")
+    private String name;
 
-  private String enName;
+    @ApiModelProperty(value = "字典英文值")
+    private String enName;
 }

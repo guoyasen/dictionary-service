@@ -69,14 +69,14 @@ public class SysDictDataController {
     /**
      * 修改
      *
-     * @param dictKey
+     * @param dictId
      * @param inParam
      * @return
      */
-    @PutMapping("/{dictKey}")
+    @PutMapping("/{dictId}")
     @Valid
-    public Response updateDictData(@PathVariable String dictKey, @RequestBody UpdateDictDataDTO inParam) {
-        service.updateDictData(dictKey, inParam);
+    public Response updateDictData(@PathVariable String dictId, @RequestBody UpdateDictDataDTO inParam) {
+        service.updateDictData(dictId, inParam);
         return Response.ok(null, "修改字典成功");
     }
 
