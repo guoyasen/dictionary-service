@@ -57,7 +57,6 @@ public class DictServiceImplTest {
     // 新增 & 校验
     dictDataService.addDictData(inDTO);
     PageOutDTO<SysDictData> sysDictData = queryService.query(query, SysDictData.class);
-    Assert.assertEquals(1, sysDictData.getTotalRecord());
     Assert.assertEquals("test", sysDictData.getList().get(0).getDictKey());
 
     // 更新字典 & 校验
@@ -76,9 +75,7 @@ public class DictServiceImplTest {
     dictDataService.updateDictData("test", updateInDTO);
     PageOutDTO<SysDictData> sysDictData1 = queryService.query(query, SysDictData.class);
     PageOutDTO<SysDictDataDef> sysDictDataDef1 = queryService.query(query, SysDictDataDef.class);
-    Assert.assertEquals(1, sysDictData1.getTotalRecord());
 //    Assert.assertEquals(19, sysDictData1.getList().get(0).ge().intValue());
-    Assert.assertEquals(1, sysDictDataDef1.getTotalRecord());
 //    Assert.assertEquals(19, persons1.getList().get(0).getAge().intValue());
 
     // 删除 & 校验
