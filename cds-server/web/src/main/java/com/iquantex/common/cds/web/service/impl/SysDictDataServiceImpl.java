@@ -56,7 +56,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     dictData.setDictName(inParam.getDictName());
     IdGenerator idWorker = new IdGenerator(0, 0);
     Long dictDateId = idWorker.nextId();
-    dictData.setId(dictDateId);
+    dictData.setId(String.valueOf(dictDateId));
     // TODO 如何获得用户ID
 
     User user = SysUserSession.get().getUser();
@@ -66,7 +66,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     dictData.setCreateTime(LocalDateTime.now());
     dao.insert(dictData);
     // 添加值信息
-    insertDictDef(props, dictKey, dictDateId);
+    insertDictDef(props, dictKey, String.valueOf(dictDateId));
     return;
   }
 
@@ -77,7 +77,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
       }
   }*/
 
-  private void insertDictDef(List<DictDataDefDTO> props, String dictKey, Long dictDataId) {
+  private void insertDictDef(List<DictDataDefDTO> props, String dictKey, String dictDataId) {
     Map<String, DictDataDefDTO> dictDataDataInPropMap = new HashMap<>();
     if (Objects.isNull(props) || props.isEmpty()) {
       throw new AppException(CdsDictErrorCode.CDSDICT0009);
@@ -94,7 +94,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 
       SysDictDataDef dictDataDef = new SysDictDataDef();
       BeanUtils.copyProperties(prop, dictDataDef);
-      dictDataDef.setId(dictDateDefId);
+      dictDataDef.setId(String.valueOf(dictDateDefId));
       dictDataDef.setSysDictDataId(dictDataId);
 
       dictDataDefDao.insert(dictDataDef);
@@ -119,7 +119,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     dictData.setDictValueType(inParam.getDictValueType());
     dictData.setDictName(inParam.getDictName());
     dictData.setAppId(inParam.getAppId());
-    dictData.setId(Long.valueOf(dictId));
+    dictData.setId(dictId);
     // TODO 如何获取用户ID
     User user = SysUserSession.get().getUser();
 
@@ -165,7 +165,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 
     SysDictDataDef newDictDataDef = new SysDictDataDef();
     BeanUtils.copyProperties(inParam, newDictDataDef);
-    newDictDataDef.setId(Long.valueOf(id));
+    newDictDataDef.setId(String.valueOf(id));
     dictDataDefDao.updateById(newDictDataDef);
   }
 

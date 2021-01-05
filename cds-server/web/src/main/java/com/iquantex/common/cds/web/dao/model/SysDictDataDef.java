@@ -25,10 +25,10 @@ public class SysDictDataDef implements Serializable {
   public static final String VALUE = "VALUE";
 
   @TableId(value = "id")
-  private Long id;
+  private String id;
 
   @TableField("sys_dict_data_id")
-  private Long sysDictDataId;
+  private String sysDictDataId;
 
   @TableField("value")
   private String value;

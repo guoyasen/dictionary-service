@@ -13,10 +13,10 @@ import lombok.Data;
 @Data
 public class DictDataDefOutDTO {
   @ApiModelProperty(value = "字典详情主键ID")
-  private Long id;
+  private String id;
 
   @ApiModelProperty(value = "字典项ID")
-  private Long sysDictDataId;
+  private String sysDictDataId;
 
   @ApiModelProperty(value = "字典值")
   private String value;

@@ -28,7 +28,7 @@ public class SysDictData implements Serializable {
   public static final String ID = "ID";
 
   @TableId("id")
-  private Long id;
+  private String id;
 
   @TableField("dict_key")
   private String dictKey;

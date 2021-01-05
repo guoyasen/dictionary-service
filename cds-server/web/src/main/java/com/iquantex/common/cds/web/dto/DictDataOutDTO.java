@@ -12,7 +12,7 @@ import lombok.Data;
 @ApiModel("字典信息")
 @Data
 public class DictDataOutDTO {
-  private Long id;
+  private String id;
 
   private String dictKey;
 
