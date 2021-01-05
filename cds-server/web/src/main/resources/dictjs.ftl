@@ -24,7 +24,7 @@ export const DICT = {
   <#if data.comment??>
   // ${data.comment}
   </#if>
-<#list data.fieldPOs as field>
+<#list data.fields as field>
   ${field.identifier}: ${field.string?string("'"+ field.value + "'", field.value)},  // ${field.annotation}
 </#list>
 

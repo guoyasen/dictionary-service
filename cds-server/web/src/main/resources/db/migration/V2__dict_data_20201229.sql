@@ -26,22 +26,22 @@ create table sys_dict_data_def
   PRIMARY KEY ( `id` )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-insert into SYS_DICT_DATA (id, dict_key, remark, dict_name, dict_value_type, app_id) values(1, 'dict_value_type', '字典值类型', '字典值类型', 1, 'cds');
+insert into sys_dict_data (id, dict_key, remark, dict_name, dict_value_type, app_id) values(1, 'dict_value_type', '字典值类型', '字典值类型', 1, 'cds');
 
-insert into SYS_DICT_DATA_DEF (id, sys_dict_data_id, value, name, en_name) values(1, 1, 1, '数值型', 'number');
+insert into sys_dict_data_def (id, sys_dict_data_id, value, name, en_name) values(1, 1, 1, '数值型', 'number');
 
-insert into SYS_DICT_DATA_DEF (id, sys_dict_data_id, value, name, en_name) values(2, 1, 2, '字符型', 'string');
+insert into sys_dict_data_def (id, sys_dict_data_id, value, name, en_name) values(2, 1, 2, '字符型', 'string');
 
-insert into SYS_DICT_DATA (id, dict_key, remark, dict_name, dict_value_type, app_id) values(2, 'app_id', '所属应用分类', '所属应用分类', 2, 'cds');
+insert into sys_dict_data (id, dict_key, remark, dict_name, dict_value_type, app_id) values(2, 'app_id', '所属应用分类', '所属应用分类', 2, 'cds');
 
-insert into SYS_DICT_DATA_DEF (id, sys_dict_data_id, value, name, en_name) values(3, 2, 'cds', '全局', 'cds');
+insert into sys_dict_data_def (id, sys_dict_data_id, value, name, en_name) values(3, 2, 'cds', '全局', 'cds');
 
-insert into SYS_DICT_DATA_DEF (id, sys_dict_data_id, value, name, en_name) values(4, 2, 'portal', 'portal', 'portal');
+insert into sys_dict_data_def (id, sys_dict_data_id, value, name, en_name) values(4, 2, 'portal', 'portal', 'portal');
 
-insert into SYS_DICT_DATA_DEF (id, sys_dict_data_id, value, name, en_name) values(5, 2, 'boi', 'boi', 'boi');
+insert into sys_dict_data_def (id, sys_dict_data_id, value, name, en_name) values(5, 2, 'boi', 'boi', 'boi');
 
-insert into SYS_DICT_DATA_DEF (id, sys_dict_data_id, value, name, en_name) values(6, 2, 'cms', 'cms', 'cms');
+insert into sys_dict_data_def (id, sys_dict_data_id, value, name, en_name) values(6, 2, 'cms', 'cms', 'cms');
 
-insert into SYS_DICT_DATA_DEF (id, sys_dict_data_id, value, name, en_name) values(7, 2, 'rme', 'rme', 'rme');
+insert into sys_dict_data_def (id, sys_dict_data_id, value, name, en_name) values(7, 2, 'rme', 'rme', 'rme');
 
-insert into SYS_DICT_DATA_DEF (id, sys_dict_data_id, value, name, en_name) values(8, 2, 'sor', 'sor', 'sor');
+insert into sys_dict_data_def (id, sys_dict_data_id, value, name, en_name) values(8, 2, 'sor', 'sor', 'sor');

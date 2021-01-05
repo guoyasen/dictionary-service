@@ -50,7 +50,7 @@ public class DictGenerator {
       if (CollectionUtils.isNotEmpty(beans)) {
         for (Iterator var6 = beans.iterator();
             var6.hasNext();
-            entity.getFieldPOs().add(this.parseField(bean)),
+            entity.getFields().add(this.parseField(bean)),
                 entity.getFieldByDictKeys().add(this.parseFieldByDictKey(bean))) {
           bean = (DictDataBeanPO) var6.next();
           String key = bean.getDictKey() + bean.getAppId();
@@ -58,7 +58,7 @@ public class DictGenerator {
           if (null == entity) {
             entity = new DictEntityPO();
             entity.setComment(bean.getDictName());
-            entity.setFieldPOs(new ArrayList());
+            entity.setFields(new ArrayList());
             entity.setAppIdAndDictKey(bean.getAppId() + "_" + bean.getDictKey());
             entity.setFieldByDictKeys(new ArrayList<>());
             map.put(key, entity);

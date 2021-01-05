@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class DictEntityPO {
   private String comment;
-  private List<FieldPO> fieldPOs;
+  private List<FieldPO> fields;
   private String appIdAndDictKey;
   private List<FieldByDictKeyPO> fieldByDictKeys;
 
@@ -22,12 +22,12 @@ public class DictEntityPO {
     this.comment = comment;
   }
 
-  public List<FieldPO> getFieldPOs() {
-    return this.fieldPOs;
+  public List<FieldPO> getFields() {
+    return this.fields;
   }
 
-  public void setFieldPOs(List<FieldPO> fieldPOs) {
-    this.fieldPOs = fieldPOs;
+  public void setFields(List<FieldPO> fields) {
+    this.fields = fields;
   }
 
   public String getAppIdAndDictKey() {
