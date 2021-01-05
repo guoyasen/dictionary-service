@@ -2,9 +2,8 @@ package com.iquantex.common.cds.web.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 
 /** 字典值列表$DictDataDef */
 @ApiModel("新增字典详情入参")

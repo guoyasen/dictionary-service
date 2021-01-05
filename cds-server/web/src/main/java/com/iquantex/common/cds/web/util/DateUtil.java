@@ -77,7 +77,7 @@ public class DateUtil {
       log.error(
           "localDateFormatToTimestamp 解析错误: formatter<{}> timestamp<{}>",
           formatter.toString(),
-              stringTime);
+          stringTime);
     }
     return null;
   }

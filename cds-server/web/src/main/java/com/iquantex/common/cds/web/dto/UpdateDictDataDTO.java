@@ -2,9 +2,8 @@ package com.iquantex.common.cds.web.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
 import java.util.List;
+import lombok.Data;
 
 /** 字典修改 */
 @ApiModel("字典修改")

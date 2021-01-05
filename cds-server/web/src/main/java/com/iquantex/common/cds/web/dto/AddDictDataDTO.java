@@ -3,9 +3,8 @@ package com.iquantex.common.cds.web.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
-import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 
 /** 增加数据字典 */
 @ApiModel("新增字典入参")

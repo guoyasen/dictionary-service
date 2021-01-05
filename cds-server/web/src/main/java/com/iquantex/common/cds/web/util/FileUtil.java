@@ -110,7 +110,9 @@ public class FileUtil {
   }
 
   public static String getFilePath(String basePath, String targetPackage) {
-    if (!basePath.startsWith(BACKSLASH) && !basePath.contains(COLON) && StringUtils.isNotBlank(basePath)) {
+    if (!basePath.startsWith(BACKSLASH)
+        && !basePath.contains(COLON)
+        && StringUtils.isNotBlank(basePath)) {
       basePath = System.getProperty("user.dir") + File.separatorChar + basePath;
     }
 

@@ -1,9 +1,9 @@
 package com.iquantex.common.cds.web.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.iquantex.common.cds.web.dao.model.DictDataBeanPO;
 import com.iquantex.common.cds.web.dao.mapper.SysDictDataDefMapper;
 import com.iquantex.common.cds.web.dao.mapper.SysDictDataMapper;
+import com.iquantex.common.cds.web.dao.model.DictDataBeanPO;
 import com.iquantex.common.cds.web.dao.model.SysDictData;
 import com.iquantex.common.cds.web.dao.model.SysDictDataDef;
 import com.iquantex.common.cds.web.dao.model.User;
