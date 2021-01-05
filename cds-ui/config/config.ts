@@ -13,7 +13,7 @@ const config: IConfig = {
   },
   apiConfig: {
     isDebug: isDev,
-    base: isDev ? '' : '',
+    base: isDev ? 'http://cds-gateway.dev.bj.iquantex.com' : '',
     domain: {},
   },
   definePlugin: {
