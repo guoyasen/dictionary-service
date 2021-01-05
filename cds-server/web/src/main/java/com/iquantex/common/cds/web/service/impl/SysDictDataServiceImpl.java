@@ -49,7 +49,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
       throw new AppException(CdsDictErrorCode.CDSDICT0001, dictKey);
     }
 
-    List<DictDataDefDTO> props = inParam.getData();
+    List<DictDataDefDTO> props = inParam.getDicts();
     dictData = new SysDictData();
     dictData.setRemark(inParam.getRemark());
     dictData.setDictKey(dictKey);
@@ -112,7 +112,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
       throw new AppException(CdsDictErrorCode.CDSDICT0003);
     }
 
-    List<DictDataDefDTO> props = inParam.getData();
+    List<DictDataDefDTO> props = inParam.getDicts();
     dictData = new SysDictData();
     dictData.setDictKey(dictData.getDictKey());
     dictData.setRemark(inParam.getRemark());

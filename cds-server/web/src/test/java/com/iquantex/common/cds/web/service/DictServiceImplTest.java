@@ -49,7 +49,7 @@ public class DictServiceImplTest {
     dictDataDefDTO.setValue("1");
     dictDataDefDTO.setName("测试1");
     data.add(dictDataDefDTO);
-    inDTO.setData(data);
+    inDTO.setDicts(data);
 
     // 新增 & 校验
     dictDataService.addDictData(inDTO);
@@ -68,7 +68,7 @@ public class DictServiceImplTest {
     updataDef.setEnName("test_update_1");
     updataDef.setValue("test");
     dataUpdate.add(updataDef);
-    updateInDTO.setData(dataUpdate);
+    updateInDTO.setDicts(dataUpdate);
     dictDataService.updateDictData(
         String.valueOf(sysDictData.getList().get(2).getId()), updateInDTO);
     PageOutDTO<SysDictData> sysDictData1 = queryService.query(query, SysDictData.class);

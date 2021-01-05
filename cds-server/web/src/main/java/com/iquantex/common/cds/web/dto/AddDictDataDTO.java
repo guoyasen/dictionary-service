@@ -12,7 +12,7 @@ import lombok.Data;
 public class AddDictDataDTO {
   /** 字典值列表 */
   @ApiModelProperty(value = "字典值列表")
-  private List<DictDataDefDTO> data;
+  private List<DictDataDefDTO> dicts;
   /** 备注 */
   @ApiModelProperty(value = "备注")
   private String remark;

@@ -66,15 +66,15 @@ public class SysDictDataController {
   /**
    * 修改
    *
-   * @param dictId
+   * @param id
    * @param inParam
    * @return
    */
-  @PutMapping("/{dictId}")
+  @PutMapping("/{id}")
   @Valid
   public Response updateDictData(
-      @PathVariable String dictId, @RequestBody UpdateDictDataDTO inParam) {
-    service.updateDictData(dictId, inParam);
+      @PathVariable String id, @RequestBody UpdateDictDataDTO inParam) {
+    service.updateDictData(id, inParam);
     return Response.ok(null, "修改字典成功");
   }
 
@@ -94,12 +94,12 @@ public class SysDictDataController {
   /**
    * 删除数据字典
    *
-   * @param dictId
+   * @param id
    * @return
    */
-  @DeleteMapping("/{dictId}")
-  public Response deleteDictData(@PathVariable String dictId) {
-    service.deleteDictData(dictId);
+  @DeleteMapping("/{id}")
+  public Response deleteDictData(@PathVariable String id) {
+    service.deleteDictData(id);
     return Response.ok(null, "删除字典成功");
   }
 }
