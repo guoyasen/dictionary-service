@@ -13,12 +13,12 @@ import org.springframework.util.CollectionUtils;
  */
 public class DictTransfer {
 
-  public static PageOutDTO<DictDataOutDTO> toDictOutDTOPage(PageOutDTO<SysDictData> dictPage) {
-    PageOutDTO<DictDataOutDTO> dictOutDTOPage = new PageOutDTO<>();
-    dictOutDTOPage.setTotalRecord(dictPage.getTotalRecord());
-    dictOutDTOPage.setList(new ArrayList<>());
+  public static PageOutDTO<DictDataOutDTO> toDictOutResult(PageOutDTO<SysDictData> dictPage) {
+    PageOutDTO<DictDataOutDTO> dictOutDtoPage = new PageOutDTO<>();
+    dictOutDtoPage.setTotalRecord(dictPage.getTotalRecord());
+    dictOutDtoPage.setList(new ArrayList<>());
     if (CollectionUtils.isEmpty(dictPage.getList())) {
-      return dictOutDTOPage;
+      return dictOutDtoPage;
     }
     dictPage
         .getList()
@@ -35,8 +35,8 @@ public class DictTransfer {
               outDTO.setModifierId(dict.getModifierId());
               outDTO.setModifyTime(dict.getModifyTime());
               outDTO.setRemark(dict.getRemark());
-              dictOutDTOPage.getList().add(outDTO);
+              dictOutDtoPage.getList().add(outDTO);
             });
-    return dictOutDTOPage;
+    return dictOutDtoPage;
   }
 }

@@ -8,7 +8,9 @@ package com.iquantex.common.cds.web.errorcode;
  * @date 2020-12-16
  */
 public enum CdsPsnErrorCode implements ErrorCode {
-  CDSPSN0001("人员%s已存在"), //
+  // 人员已存在
+  CDSPSN0001("人员%s已存在"),
+  // 人员不存在
   CDSPSN0002("人员%s不存在");
 
   private String remark;

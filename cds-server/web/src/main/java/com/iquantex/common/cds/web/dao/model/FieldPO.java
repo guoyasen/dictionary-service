@@ -1,16 +1,16 @@
-package com.iquantex.common.cds.web.bean.dict;
+package com.iquantex.common.cds.web.dao.model;
 
 /**
  * @author gys
  * @date 2020/12/30
  */
-public class JSField {
+public class FieldPO {
   private String identifier;
   private String value;
   private String annotation;
   private boolean string;
 
-  public JSField() {}
+  public FieldPO() {}
 
   public String getIdentifier() {
     return this.identifier;

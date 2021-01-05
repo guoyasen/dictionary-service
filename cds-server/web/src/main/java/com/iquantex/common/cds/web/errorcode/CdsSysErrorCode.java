@@ -8,7 +8,9 @@ package com.iquantex.common.cds.web.errorcode;
  * @date 2020-12-16
  */
 public enum CdsSysErrorCode implements ErrorCode {
-  CDSSYS0000("系统未知异常"), //
+  // 系统未知异常
+  CDSSYS0000("系统未知异常"),
+  // 入参检验不通过
   CDSSYS0001("入参校验不通过: %s");
 
   private String remark;

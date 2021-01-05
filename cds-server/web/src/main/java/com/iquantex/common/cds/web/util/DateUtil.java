@@ -56,28 +56,28 @@ public class DateUtil {
    * 将字符串转化为时间格式时间戳
    *
    * @param pattern
-   * @param StringTime
+   * @param stringTime
    * @return
    */
-  public static Long localDateFormatToTimestamp(String pattern, String StringTime) {
-    return localDateFormatToTimestamp(DateTimeFormatter.ofPattern(pattern), StringTime);
+  public static Long localDateFormatToTimestamp(String pattern, String stringTime) {
+    return localDateFormatToTimestamp(DateTimeFormatter.ofPattern(pattern), stringTime);
   }
 
   /**
    * 将字符串转化为时间格式时间戳
    *
    * @param formatter
-   * @param StringTime
+   * @param stringTime
    * @return
    */
-  public static Long localDateFormatToTimestamp(DateTimeFormatter formatter, String StringTime) {
+  public static Long localDateFormatToTimestamp(DateTimeFormatter formatter, String stringTime) {
     try {
-      return localDateTimeToLong(LocalDate.parse(StringTime, formatter).atStartOfDay());
+      return localDateTimeToLong(LocalDate.parse(stringTime, formatter).atStartOfDay());
     } catch (Exception e) {
       log.error(
           "localDateFormatToTimestamp 解析错误: formatter<{}> timestamp<{}>",
           formatter.toString(),
-          StringTime);
+              stringTime);
     }
     return null;
   }

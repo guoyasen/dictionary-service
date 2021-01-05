@@ -13,13 +13,13 @@ import org.springframework.util.CollectionUtils;
  */
 public class DictDefTransfer {
 
-  public static PageOutDTO<DictDataDefOutDTO> toDictDefOutDTOPage(
+  public static PageOutDTO<DictDataDefOutDTO> toDictDefOutResult(
       PageOutDTO<SysDictDataDef> dictDefPage) {
-    PageOutDTO<DictDataDefOutDTO> dictOutDefDTOPage = new PageOutDTO<>();
-    dictOutDefDTOPage.setTotalRecord(dictDefPage.getTotalRecord());
-    dictOutDefDTOPage.setList(new ArrayList<>());
+    PageOutDTO<DictDataDefOutDTO> dictOutDefDtoPage = new PageOutDTO<>();
+    dictOutDefDtoPage.setTotalRecord(dictDefPage.getTotalRecord());
+    dictOutDefDtoPage.setList(new ArrayList<>());
     if (CollectionUtils.isEmpty(dictDefPage.getList())) {
-      return dictOutDefDTOPage;
+      return dictOutDefDtoPage;
     }
     dictDefPage
         .getList()
@@ -32,8 +32,8 @@ public class DictDefTransfer {
               outDTO.setName(dict.getName());
               outDTO.setEnName(dict.getEnName());
               outDTO.setValue(dict.getValue());
-              dictOutDefDTOPage.getList().add(outDTO);
+              dictOutDefDtoPage.getList().add(outDTO);
             });
-    return dictOutDefDTOPage;
+    return dictOutDefDtoPage;
   }
 }

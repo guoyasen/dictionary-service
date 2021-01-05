@@ -44,8 +44,8 @@ public class PersonController {
   @GetMapping
   public Response<PageOutDTO<PersonOutDTO>> query(@RequestParam @ApiParam("通用查询语句") String query) {
     PageOutDTO<Person> personPage = queryService.query(query, Person.class);
-    PageOutDTO<PersonOutDTO> personOutDTOPage = PersonTransfer.toPersonOutDTOPage(personPage);
-    return Response.ok(personOutDTOPage, "查询成功");
+    PageOutDTO<PersonOutDTO> personOutDtoPage = PersonTransfer.toPersonOutDtoPage(personPage);
+    return Response.ok(personOutDtoPage, "查询成功");
   }
 
   @ApiOperation("新增人员")

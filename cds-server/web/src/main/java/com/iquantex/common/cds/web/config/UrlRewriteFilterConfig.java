@@ -22,6 +22,7 @@ public class UrlRewriteFilterConfig extends UrlRewriteFilter {
   @Value(URL_REWRITE)
   private Resource resource;
 
+  @Override
   protected void loadUrlRewriter(FilterConfig filterConfig) throws ServletException {
     try {
       // Create a UrlRewrite Conf object with the injected resource

@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
  * @date 12/18/2020 2:20 PM
  */
 public enum PersonGenderEnum {
+  // 男
   MALE(1, "男"),
+  // 女
   FEMALE(2, "女");
 
   @EnumValue private final int value;

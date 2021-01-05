@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /** 增加数据字典 */
 @ApiModel("新增字典入参")
 @Data
@@ -17,6 +19,7 @@ public class AddDictDataDTO {
   private String remark;
   /** 字典key' */
   @ApiModelProperty(value = "字典KEY")
+  @NotBlank(message = "字典KEY不能为空")
   private String dictKey;
   /** 字典值类型 */
   @ApiModelProperty(value = "字典值类型")
@@ -24,9 +27,11 @@ public class AddDictDataDTO {
 
   /** 字典名称 */
   @ApiModelProperty(value = "字典名称")
+  @NotBlank(message = "字典名称不能为空")
   private String dictName;
 
   /** 所属应用 */
   @ApiModelProperty(value = "所属应用")
+  @NotBlank(message = "所属应用不能为空")
   private String appId;
 }

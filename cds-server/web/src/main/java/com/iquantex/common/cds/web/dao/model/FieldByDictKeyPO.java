@@ -1,10 +1,10 @@
-package com.iquantex.common.cds.web.bean.dict;
+package com.iquantex.common.cds.web.dao.model;
 
 /**
  * @author gys
  * @date 2020/12/30
  */
-public class JSFieldByDictKey {
+public class FieldByDictKeyPO {
   private String value;
   private String name;
   private boolean string;

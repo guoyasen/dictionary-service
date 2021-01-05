@@ -33,9 +33,9 @@ public class SysDictDataController {
   @GetMapping
   public Response<PageOutDTO<DictDataOutDTO>> query(
       @RequestParam @ApiParam("通用查询语句") String query) {
-    PageOutDTO<SysDictData> DictPage = queryService.query(query, SysDictData.class);
-    PageOutDTO<DictDataOutDTO> dictOutDTOPage = DictTransfer.toDictOutDTOPage(DictPage);
-    return Response.ok(dictOutDTOPage, "查询成功");
+    PageOutDTO<SysDictData> dictPage = queryService.query(query, SysDictData.class);
+    PageOutDTO<DictDataOutDTO> dictOutDtoPage = DictTransfer.toDictOutResult(dictPage);
+    return Response.ok(dictOutDtoPage, "查询成功");
   }
 
   /**

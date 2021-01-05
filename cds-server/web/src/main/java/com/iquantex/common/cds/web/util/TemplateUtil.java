@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
  * @date 2020/12/30
  */
 public class TemplateUtil {
-  private static final Configuration cfg;
+  private static final Configuration CFG;
 
   public TemplateUtil() {}
 
@@ -37,7 +37,7 @@ public class TemplateUtil {
 
   public static Template getTemplate(String path, String encoding) {
     try {
-      return cfg.getTemplate(path, StringUtils.isBlank(encoding) ? "UTF-8" : encoding);
+      return CFG.getTemplate(path, StringUtils.isBlank(encoding) ? "UTF-8" : encoding);
     } catch (Exception var3) {
       throw new RuntimeException("获取freeMarker模版失败", var3);
     }
@@ -48,14 +48,14 @@ public class TemplateUtil {
   }
 
   static {
-    cfg = new Configuration(Configuration.VERSION_2_3_22);
+    CFG = new Configuration(Configuration.VERSION_2_3_22);
 
     try {
       URL url = TemplateUtil.class.getProtectionDomain().getCodeSource().getLocation();
       String templatePath = url.getPath();
-      cfg.setDirectoryForTemplateLoading(new File(templatePath));
+      CFG.setDirectoryForTemplateLoading(new File(templatePath));
     } catch (IOException var2) {
-      cfg.setClassForTemplateLoading(TemplateUtil.class, "/");
+      CFG.setClassForTemplateLoading(TemplateUtil.class, "/");
     } catch (Exception var3) {
       throw new RuntimeException("模板初始化失败", var3);
     }

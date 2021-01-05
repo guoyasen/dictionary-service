@@ -7,7 +7,7 @@ export const DICTDATA = {
 <#list list as data>
 <#if data.appIdAndDictKey??>
     ${data.appIdAndDictKey}: [
-    <#list data.jsFieldByDictKeys as jsFieldByDictKey>
+    <#list data.fieldByDictKeys as jsFieldByDictKey>
         {
             id:${jsFieldByDictKey.string?string("'"+ jsFieldByDictKey.value + "'", jsFieldByDictKey.value)},
             name:'${jsFieldByDictKey.name}'
@@ -24,7 +24,7 @@ export const DICT = {
   <#if data.comment??>
   // ${data.comment}
   </#if>
-<#list data.fields as field>
+<#list data.fieldPOs as field>
   ${field.identifier}: ${field.string?string("'"+ field.value + "'", field.value)},  // ${field.annotation}
 </#list>
 

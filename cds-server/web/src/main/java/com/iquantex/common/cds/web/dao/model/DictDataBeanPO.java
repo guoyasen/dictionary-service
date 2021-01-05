@@ -1,10 +1,10 @@
-package com.iquantex.common.cds.web.bean.dict;
+package com.iquantex.common.cds.web.dao.model;
 
 /**
  * @author gys
  * @date 2020/12/30
  */
-public class DictDataBean {
+public class DictDataBeanPO {
 
   private String dictKey;
   private String value;
@@ -15,7 +15,7 @@ public class DictDataBean {
   private String appId;
   private String dictName;
 
-  public DictDataBean() {}
+  public DictDataBeanPO() {}
 
   public String getValue() {
     return value;

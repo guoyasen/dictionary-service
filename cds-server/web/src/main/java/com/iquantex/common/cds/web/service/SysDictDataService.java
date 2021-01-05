@@ -1,6 +1,6 @@
 package com.iquantex.common.cds.web.service;
 
-import com.iquantex.common.cds.web.bean.dict.DictDataBean;
+import com.iquantex.common.cds.web.dao.model.DictDataBeanPO;
 import com.iquantex.common.cds.web.dto.AddDictDataDTO;
 import com.iquantex.common.cds.web.dto.UpdateDictDataDTO;
 import com.iquantex.common.cds.web.dto.UpdateDictDataDefDTO;
@@ -18,5 +18,5 @@ public interface SysDictDataService {
 
   void updateDictDataDef(Integer id, UpdateDictDataDefDTO inParam);
 
-  List<DictDataBean> selectForDownload(String appId);
+  List<DictDataBeanPO> selectForDownload(String appId);
 }

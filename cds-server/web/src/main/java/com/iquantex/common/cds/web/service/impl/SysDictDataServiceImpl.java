@@ -1,7 +1,7 @@
 package com.iquantex.common.cds.web.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.iquantex.common.cds.web.bean.dict.DictDataBean;
+import com.iquantex.common.cds.web.dao.model.DictDataBeanPO;
 import com.iquantex.common.cds.web.dao.mapper.SysDictDataDefMapper;
 import com.iquantex.common.cds.web.dao.mapper.SysDictDataMapper;
 import com.iquantex.common.cds.web.dao.model.SysDictData;
@@ -44,15 +44,12 @@ public class SysDictDataServiceImpl implements SysDictDataService {
         .eq(SysDictData.DICT_KEY, inParam.getDictKey())
         .eq(SysDictData.APP_ID, inParam.getAppId());
     SysDictData dictData = dao.selectOne(wrapper);
-    //        SysDictData dictData = dao.selectById(inParam.getDictKey());
+
     if (null != dictData) {
       throw new AppException(CdsDictErrorCode.CDSDICT0001, dictKey);
     }
 
     List<DictDataDefDTO> props = inParam.getData();
-    //        assertType(inParam.getType(), props.size());
-
-    // 新增数据字典信息
     dictData = new SysDictData();
     dictData.setRemark(inParam.getRemark());
     dictData.setDictKey(dictKey);
@@ -62,7 +59,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     Long dictDateId = Long.valueOf(idGeneratorService.nextId(System.currentTimeMillis()));
     dictData.setId(dictDateId);
     // TODO 如何获得用户ID
-    //        dictData.setCreatorId(SessionData.getUserId());
+
     User user = SysUserSession.get().getUser();
     if (Objects.nonNull(user)) {
       dictData.setCreatorId(user.getName());
@@ -110,15 +107,12 @@ public class SysDictDataServiceImpl implements SysDictDataService {
   public void updateDictData(String dictId, UpdateDictDataDTO inParam) {
 
     SysDictData dictData = dao.selectById(Long.valueOf(dictId));
-    //        SysDictData dictData = dao.selectById(dictKey);
+
     if (null == dictData) {
       throw new AppException(CdsDictErrorCode.CDSDICT0003);
     }
 
     List<DictDataDefDTO> props = inParam.getData();
-    //        assertType(inParam.getType(), props.size());
-
-    // 更新字典信息
     dictData = new SysDictData();
     dictData.setDictKey(dictData.getDictKey());
     dictData.setRemark(inParam.getRemark());
@@ -128,7 +122,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     dictData.setId(Long.valueOf(dictId));
     // TODO 如何获取用户ID
     User user = SysUserSession.get().getUser();
-    //        dictData.setModifierId(SessionData.getUserId());
+
     if (Objects.nonNull(user)) {
       dictData.setModifierId(user.getName());
     }
@@ -176,8 +170,8 @@ public class SysDictDataServiceImpl implements SysDictDataService {
   }
 
   @Override
-  public List<DictDataBean> selectForDownload(String appId) {
-    return dao.getVSysDictData(appId);
+  public List<DictDataBeanPO> selectForDownload(String appId) {
+    return dao.getSysDictData(appId);
   }
 
   @Transactional
@@ -186,14 +180,14 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     QueryWrapper<SysDictData> wrapper = new QueryWrapper<>();
     wrapper.eq(SysDictData.ID, Long.valueOf(dictDataId));
     SysDictData dictData = dao.selectOne(wrapper);
-    //        SysDictData dictData = dao.selectById(dictKey);
+
     if (null == dictData) {
       throw new AppException(CdsDictErrorCode.CDSDICT0003);
     }
 
     // 删除数据字典
     dao.delete(wrapper);
-    //        dao.deleteById(dictKey);
+
     // 删除子项
     QueryWrapper<SysDictDataDef> defWrapper = new QueryWrapper<>();
     defWrapper.eq(SysDictDataDef.SYS_DICT_DATA_ID, Long.valueOf(dictDataId));

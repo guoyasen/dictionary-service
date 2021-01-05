@@ -16,12 +16,12 @@ import org.springframework.util.CollectionUtils;
  */
 public class PersonTransfer {
 
-  public static PageOutDTO<PersonOutDTO> toPersonOutDTOPage(PageOutDTO<Person> personPage) {
-    PageOutDTO<PersonOutDTO> personOutDTOPage = new PageOutDTO<>();
-    personOutDTOPage.setTotalRecord(personPage.getTotalRecord());
-    personOutDTOPage.setList(new ArrayList<>());
+  public static PageOutDTO<PersonOutDTO> toPersonOutDtoPage(PageOutDTO<Person> personPage) {
+    PageOutDTO<PersonOutDTO> personOutDtoPage = new PageOutDTO<>();
+    personOutDtoPage.setTotalRecord(personPage.getTotalRecord());
+    personOutDtoPage.setList(new ArrayList<>());
     if (CollectionUtils.isEmpty(personPage.getList())) {
-      return personOutDTOPage;
+      return personOutDtoPage;
     }
     personPage
         .getList()
@@ -32,9 +32,9 @@ public class PersonTransfer {
               outDTO.setAge(person.getAge());
               outDTO.setNumber(person.getNumber());
               outDTO.setGender(person.getGender().getValue());
-              personOutDTOPage.getList().add(outDTO);
+              personOutDtoPage.getList().add(outDTO);
             });
-    return personOutDTOPage;
+    return personOutDtoPage;
   }
 
   public static Person toPerson(String name, UpdatePersonInDTO inDTO) {

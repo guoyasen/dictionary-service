@@ -1,41 +1,20 @@
 package com.iquantex.common.cds.web.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 /** 字典子项修改 */
+@ApiModel("字典子项修改")
+@Data
 public class UpdateDictDataDefDTO {
   /** 字典值 */
+  @ApiModelProperty(value = "字典值")
   private String value;
   /** 中文翻译 */
+  @ApiModelProperty(value = "中文翻译")
   private String name;
   /** 字典英文值 */
+  @ApiModelProperty(value = "字典英文值")
   private String enName;
-
-  /** 获取字典值 */
-  public String getValue() {
-    return this.value;
-  }
-
-  /** 设置字典值 */
-  public void setValue(String value) {
-    this.value = value;
-  }
-
-  /** 获取中文翻译 */
-  public String getName() {
-    return this.name;
-  }
-
-  /** 设置字典翻译 */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /** 获取字典英文值 */
-  public String getEnName() {
-    return this.enName;
-  }
-
-  /** 设置字典英文值 */
-  public void setEnName(String enName) {
-    this.enName = enName;
-  }
 }

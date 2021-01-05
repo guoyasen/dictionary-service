@@ -26,9 +26,9 @@ public class SysDictDataDefController {
   @GetMapping
   public Response<PageOutDTO<DictDataDefOutDTO>> query(
       @RequestParam @ApiParam("通用查询语句") String query) {
-    PageOutDTO<SysDictDataDef> DictDefPage = queryService.query(query, SysDictDataDef.class);
-    PageOutDTO<DictDataDefOutDTO> dictDefOutDTOPage =
-        DictDefTransfer.toDictDefOutDTOPage(DictDefPage);
-    return Response.ok(dictDefOutDTOPage, "查询成功");
+    PageOutDTO<SysDictDataDef> dictDefPage = queryService.query(query, SysDictDataDef.class);
+    PageOutDTO<DictDataDefOutDTO> dictDefOutDtoPage =
+        DictDefTransfer.toDictDefOutResult(dictDefPage);
+    return Response.ok(dictDefOutDtoPage, "查询成功");
   }
 }
