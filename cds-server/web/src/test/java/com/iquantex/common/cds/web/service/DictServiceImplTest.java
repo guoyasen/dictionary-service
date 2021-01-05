@@ -3,7 +3,6 @@ package com.iquantex.common.cds.web.service;
 import com.iquantex.common.cds.web.dao.model.SysDictData;
 import com.iquantex.common.cds.web.dao.model.SysDictDataDef;
 import com.iquantex.common.cds.web.dto.*;
-import com.iquantex.common.cds.web.util.IdGenerator;
 import com.iquantex.portal.web.api.PageOutDTO;
 import com.iquantex.portal.web.query.service.QueryService;
 import java.util.ArrayList;
