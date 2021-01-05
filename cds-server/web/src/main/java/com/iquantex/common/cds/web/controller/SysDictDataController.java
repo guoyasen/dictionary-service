@@ -72,8 +72,7 @@ public class SysDictDataController {
    */
   @PutMapping("/{id}")
   @Valid
-  public Response updateDictData(
-      @PathVariable String id, @RequestBody UpdateDictDataDTO inParam) {
+  public Response updateDictData(@PathVariable String id, @RequestBody UpdateDictDataDTO inParam) {
     service.updateDictData(id, inParam);
     return Response.ok(null, "修改字典成功");
   }
