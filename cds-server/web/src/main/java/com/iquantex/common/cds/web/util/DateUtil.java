@@ -24,6 +24,8 @@ public class DateUtil {
 
   public static final String PATTERN_E = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 
+  public static final String PATTERN_F = "yyyyMMddhhmmss";
+
   public static String formatFromTimestamp(String pattern, Long timestamp) {
     return formatFromTimestamp(DateTimeFormatter.ofPattern(pattern), timestamp);
   }

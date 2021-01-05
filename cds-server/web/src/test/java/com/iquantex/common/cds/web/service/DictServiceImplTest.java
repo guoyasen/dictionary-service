@@ -3,6 +3,7 @@ package com.iquantex.common.cds.web.service;
 import com.iquantex.common.cds.web.dao.model.SysDictData;
 import com.iquantex.common.cds.web.dao.model.SysDictDataDef;
 import com.iquantex.common.cds.web.dto.*;
+import com.iquantex.common.cds.web.util.IdGenerator;
 import com.iquantex.portal.web.api.PageOutDTO;
 import com.iquantex.portal.web.query.service.QueryService;
 import java.util.ArrayList;
@@ -89,5 +90,16 @@ public class DictServiceImplTest {
   public void testIdGen() {
     Date date = new Date();
     System.out.println(idGeneratorService.nextId(date.getTime()));
+  }
+
+  /** 测试 */
+  @Test
+  public void testIdGenerator() {
+    IdGenerator idWorker = new IdGenerator(0, 0);
+    for (int i = 0; i < 10; i++) {
+      long id = idWorker.nextId();
+      System.out.println(Long.toBinaryString(id));
+      System.out.println(id);
+    }
   }
 }

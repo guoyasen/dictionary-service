@@ -14,8 +14,8 @@ import com.iquantex.common.cds.web.dto.UpdateDictDataDefDTO;
 import com.iquantex.common.cds.web.errorcode.CdsDictErrorCode;
 import com.iquantex.common.cds.web.exception.AppException;
 import com.iquantex.common.cds.web.jwt.SysUserSession;
-import com.iquantex.common.cds.web.service.IdGeneratorService;
 import com.iquantex.common.cds.web.service.SysDictDataService;
+import com.iquantex.common.cds.web.util.IdGenerator;
 import java.time.LocalDateTime;
 import java.util.*;
 import javax.validation.Valid;
@@ -29,8 +29,6 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 
   @Autowired private SysDictDataMapper dao;
   @Autowired private SysDictDataDefMapper dictDataDefDao;
-
-  @Autowired private IdGeneratorService idGeneratorService;
 
   @Transactional
   @Override
@@ -56,7 +54,8 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     dictData.setDictValueType(inParam.getDictValueType());
     dictData.setAppId(inParam.getAppId());
     dictData.setDictName(inParam.getDictName());
-    Long dictDateId = Long.valueOf(idGeneratorService.nextId(System.currentTimeMillis()));
+    IdGenerator idWorker = new IdGenerator(0, 0);
+    Long dictDateId = idWorker.nextId();
     dictData.setId(dictDateId);
     // TODO 如何获得用户ID
 
@@ -83,9 +82,10 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     if (Objects.isNull(props) || props.isEmpty()) {
       throw new AppException(CdsDictErrorCode.CDSDICT0009);
     }
+    IdGenerator idWorker = new IdGenerator(0, 0);
     for (DictDataDefDTO prop : props) {
       String key = prop.getValue();
-      Long dictDateDefId = Long.valueOf(idGeneratorService.nextId(System.currentTimeMillis()));
+      Long dictDateDefId = idWorker.nextId();
       if (dictDataDataInPropMap.containsKey(key)) {
         throw new AppException(CdsDictErrorCode.CDSDICT0002, dictKey, key);
       } else {
