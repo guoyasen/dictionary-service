@@ -131,7 +131,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 
     // 删除原数据字典子项
     QueryWrapper<SysDictDataDef> defWrapper = new QueryWrapper<>();
-    defWrapper.eq(SysDictDataDef.SYS_DICT_DATA_ID, dictData.getId());
+    defWrapper.eq(SysDictDataDef.DICT_ID, dictData.getId());
     dictDataDefDao.delete(defWrapper);
     // 子项入库
     insertDictDef(props, dictData.getDictKey(), dictData.getId());
@@ -155,7 +155,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     if (!dictDataDef.getValue().equals(inParam.getValue())) {
       QueryWrapper<SysDictDataDef> wrapper = new QueryWrapper<>();
       wrapper
-          .eq(SysDictDataDef.SYS_DICT_DATA_ID, dictDataDef.getDictId())
+          .eq(SysDictDataDef.DICT_ID, dictDataDef.getDictId())
           .eq(SysDictDataDef.VALUE, inParam.getValue());
       int count = dictDataDefDao.selectCount(wrapper);
       if (count > 0) {
@@ -190,7 +190,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 
     // 删除子项
     QueryWrapper<SysDictDataDef> defWrapper = new QueryWrapper<>();
-    defWrapper.eq(SysDictDataDef.SYS_DICT_DATA_ID, Long.valueOf(dictDataId));
+    defWrapper.eq(SysDictDataDef.DICT_ID, Long.valueOf(dictDataId));
     dictDataDefDao.delete(defWrapper);
   }
 
@@ -204,7 +204,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     SysDictData sysDictData = dao.selectById(dictDataDef.getDictId());
     // 判断数据字典子项是否存在，如果不存在那么不进行删除唯一子字典操作
     QueryWrapper<SysDictDataDef> wrapper = new QueryWrapper<>();
-    wrapper.eq(SysDictDataDef.SYS_DICT_DATA_ID, dictDataDef.getDictId());
+    wrapper.eq(SysDictDataDef.DICT_ID, dictDataDef.getDictId());
     List<SysDictDataDef> sysDictDataDefList = dictDataDefDao.selectList(wrapper);
     if (!sysDictDataDefList.isEmpty() && sysDictDataDefList.size() == 1) {
       throw new AppException(CdsDictErrorCode.CDSDICT0006, sysDictData.getDictKey());

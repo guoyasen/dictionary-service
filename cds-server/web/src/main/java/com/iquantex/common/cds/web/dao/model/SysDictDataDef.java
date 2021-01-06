@@ -20,7 +20,7 @@ public class SysDictDataDef implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  public static final String SYS_DICT_DATA_ID = "SYS_DICT_DATA_ID";
+  public static final String DICT_ID = "DICT_ID";
 
   public static final String VALUE = "VALUE";
 
