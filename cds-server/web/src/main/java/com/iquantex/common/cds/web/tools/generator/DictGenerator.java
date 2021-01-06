@@ -34,6 +34,7 @@ public class DictGenerator {
   }
 
   public List<DictEntityPO> listEntity(String appIds) throws Exception {
+    log.info("进入list方法");
     List<DictDataBeanPO> rs = new ArrayList<>();
 
     List<String> appIdsArr = Arrays.asList(appIds.split(","));

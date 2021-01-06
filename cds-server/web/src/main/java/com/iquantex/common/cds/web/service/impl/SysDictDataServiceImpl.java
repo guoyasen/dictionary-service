@@ -19,11 +19,13 @@ import com.iquantex.common.cds.web.util.IdGenerator;
 import java.time.LocalDateTime;
 import java.util.*;
 import javax.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 public class SysDictDataServiceImpl implements SysDictDataService {
 
@@ -54,9 +56,8 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     dictData.setDictValueType(inParam.getDictValueType());
     dictData.setAppId(inParam.getAppId());
     dictData.setDictName(inParam.getDictName());
-    IdGenerator idWorker = new IdGenerator(0, 0);
-    Long dictDateId = idWorker.nextId();
-    dictData.setId(String.valueOf(dictDateId));
+    String dictDateId = inParam.getAppId() + "_" + dictKey;
+    dictData.setId(dictDateId);
     // TODO 如何获得用户ID
 
     User user = SysUserSession.get().getUser();
@@ -66,7 +67,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     dictData.setCreateTime(LocalDateTime.now());
     dao.insert(dictData);
     // 添加值信息
-    insertDictDef(props, dictKey, String.valueOf(dictDateId));
+    insertDictDef(props, dictKey, dictDateId);
     return;
   }
 
@@ -106,7 +107,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
   @Valid
   public void updateDictData(String dictId, UpdateDictDataDTO inParam) {
 
-    SysDictData dictData = dao.selectById(Long.valueOf(dictId));
+    SysDictData dictData = dao.selectById(dictId);
 
     if (null == dictData) {
       throw new AppException(CdsDictErrorCode.CDSDICT0003);
@@ -146,6 +147,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
   @Override
   @Valid
   public void updateDictDataDef(String id, UpdateDictDataDefDTO inParam) {
+    log.info("进入修改字典子项方法");
     SysDictDataDef dictDataDef = dictDataDefDao.selectById(id);
     if (null == dictDataDef) {
       throw new AppException(CdsDictErrorCode.CDSDICT0004, id);
@@ -163,6 +165,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
       }
     }
 
+    log.info("修改字典子项，开始修改表数据");
     SysDictDataDef newDictDataDef = new SysDictDataDef();
     BeanUtils.copyProperties(inParam, newDictDataDef);
     newDictDataDef.setId(String.valueOf(id));
