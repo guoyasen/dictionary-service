@@ -9,6 +9,7 @@ import com.iquantex.common.cds.web.dao.model.FieldPO;
 import com.iquantex.common.cds.web.service.SysDictDataService;
 import com.iquantex.common.cds.web.util.TemplateUtil;
 import java.util.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  * @author gys
  * @date 2020/12/30
  */
+@Slf4j
 @Service
 public class DictGenerator {
 
@@ -40,10 +42,12 @@ public class DictGenerator {
       rs.addAll(sysDictDataService.selectForDownload("%" + appId + "%"));
     }
 
+    log.info("导出功能，查询到的数据条数为：" + rs.size());
     if (Objects.isNull(rs) || CollectionUtils.isEmpty(rs)) {
       return null;
     } else {
       List<DictDataBeanPO> beans = JSON.parseArray(JSON.toJSONString(rs), DictDataBeanPO.class);
+      log.info("转化后条数为：" + beans.size());
       Map<String, DictEntityPO> map = new LinkedHashMap();
       DictDataBeanPO bean;
       DictEntityPO entity;
