@@ -6,11 +6,13 @@ import com.iquantex.common.cds.web.exception.AppException;
 import com.iquantex.common.cds.web.service.DictJsService;
 import com.iquantex.common.cds.web.tools.generator.DictGenerator;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /** Created by leo on 2017/6/8. */
+@Slf4j
 @Service
 public class DictJsServiceImpl implements DictJsService {
 
@@ -21,6 +23,7 @@ public class DictJsServiceImpl implements DictJsService {
 
     try {
       DictGenerator generator = new DictGenerator();
+      log.info("传入的appIds为：" + appId);
       List<DictEntityPO> list = generator.listEntity(appId);
       return generator.getContent(list, isBlack);
     } catch (Exception e) {
