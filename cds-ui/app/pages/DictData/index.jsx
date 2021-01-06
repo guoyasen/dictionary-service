@@ -20,6 +20,34 @@ class DictDataComponent extends React.Component {
     url: '/sys_dict_data',
   });
 
+   // 搜索表单配置
+  formConfig = {
+    fields: [
+      {
+        name: 'dictKey$like',
+        label: '字典Key',
+        component: 'Input',
+      },
+      {
+        name: 'dictValueType',
+        label: '字典值类型',
+        component: 'Select',
+        props: {
+          dictData: DICTDATA.cds_dict_value_type,
+        },
+      },
+      {
+        name: 'appId',
+        label: '所属应用',
+        component: 'Select',
+        props: {
+          dictSite: 'portal-server',
+          dictUrl: '/api/v1/applications',
+        },
+      },
+    ],
+  };
+
   tableConfig = {
     tableId: AgGrid.Table.ID.DictData_index,
     onTableReady: tableStore => {
@@ -39,6 +67,7 @@ class DictDataComponent extends React.Component {
         {
           headerName: '字典值类型',
           field: 'dictValueType',
+          filter: 'agSetColumnFilter', 
           valueGetter: ({ data }) => {
             let findValue = DICTDATA.cds_dict_value_type.find(item => item.id === data.dictValueType);
             return findValue.name;
@@ -47,11 +76,12 @@ class DictDataComponent extends React.Component {
         {
           headerName: '所属应用',
           field: 'appId',
-          filter: 'agSetColumnFilter',
+          filter: 'agSetColumnFilter', // to-do 精确筛选下拉列表数据不展示
         },
         {
           headerName: '创建用户',
           field: 'creatorIdName',
+          // filter: 'agSetColumnFilter',
         },
         {
           headerName: '创建时间',
@@ -61,6 +91,7 @@ class DictDataComponent extends React.Component {
         {
           headerName: '修改用户',
           field: 'modifierIdName',
+          // filter: 'agSetColumnFilter',
         },
         {
           headerName: '修改时间',
@@ -76,11 +107,12 @@ class DictDataComponent extends React.Component {
           colId: 'operation',
           filter: false, // 禁用过滤
           sortable: false, // 禁用排序
+          pinned: 'right',
           cellRendererFramework: ({ data = {} }) => {
             return (
               <AButtonGroup>
                 <Aa onClick={() => {
-                  this.showBatchDictForm(data, 'edit');
+                  this.showBatchDictForm(data);
                 }} >编辑</Aa>
                 <Popconfirm title='是否确认删除该字典?'
                   onConfirm={() => {
@@ -93,6 +125,9 @@ class DictDataComponent extends React.Component {
           },
         }
       ],
+      onFirstDataRendered: (params) => {
+        params.api.sizeColumnsToFit();
+      },
       // 列默认配置
       defaultColDef: {
         width: 200,
@@ -107,6 +142,7 @@ class DictDataComponent extends React.Component {
       },
       paginationPageSize: 20,
       pagination: true,
+      rowModelType: 'serverSide',
 
       // 子表格
       masterDetail: true,
@@ -180,16 +216,15 @@ class DictDataComponent extends React.Component {
 
   render() {
     return (
-      <div className="qx-main">
-        <div className="m-b-10">
-          <AButton className="m-r-10" type='primary' size='small' onClick={this.showBatchAddDictForm}>新增</AButton>
-          <AButton type='primary' size='small' onClick={this.exportFile}>导出</AButton>
-        </div>
-        <AgGrid.PageTable
+      <div className={'h-100' + ' layout-spacer'}>
+        <AgGrid.SearchFormTable
           searchApi={this.searchApi}
+          formConfig={this.formConfig}
           tableConfig={this.tableConfig}
-          searchOnReady>        
-        </AgGrid.PageTable>
+        >
+          <AButton className="m-r-10" type='primary' size='small' onClick={this.showBatchAddDictForm}>新增</AButton>
+          <AButton type='primary' size='small' onClick={this.exportFile}>导出</AButton>       
+        </AgGrid.SearchFormTable>
         <Modal {...this.modal.props} />
       </div>
     );

@@ -168,15 +168,17 @@ class BatchDictFormComponent extends Component {
                 <Select
                   allowClear={true}
                   disabled={type === 'edit'}
-                  dictData={DICTDATA.cds_app_id}>
+                  dictSite='portal-server'
+                  dictUrl='/api/v1/applications'
+                >
                 </Select>
               )}
             </FormItem>
           </div>
-          <div className='m-b-4'>
-            <FormItem><a onClick={uiState.addDictItem}>添加字典子项</a></FormItem>
-          </div>
-          
+
+          <div className='m-b-8'>
+            <a onClick={uiState.addDictItem}>添加字典子项</a>
+          </div>         
           {this.renderDictGroup()}
         </div>
 
