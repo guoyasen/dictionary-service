@@ -107,7 +107,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
   @Valid
   public void updateDictData(String dictId, UpdateDictDataDTO inParam) {
 
-    SysDictData dictData = dao.selectById(Long.valueOf(dictId));
+    SysDictData dictData = dao.selectById(dictId);
 
     if (null == dictData) {
       throw new AppException(CdsDictErrorCode.CDSDICT0003);
