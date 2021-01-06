@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,7 +25,7 @@ public class DictJsController {
   /** 后端带出文件名 */
   public static final String BACK_FILE_NAME = "DictConstants.java";
 
-  @RequestMapping("/front/download")
+  @GetMapping("/front/download")
   public ResponseEntity<byte[]> frontDownload(@RequestParam("appIds") String appIds)
       throws IOException {
     boolean isBlack = false;
@@ -41,7 +42,7 @@ public class DictJsController {
     return new ResponseEntity<>(content.getBytes(charsetName), headers, HttpStatus.CREATED);
   }
 
-  @RequestMapping("/back/download")
+  @GetMapping("/back/download")
   public ResponseEntity<byte[]> backDownload(@RequestParam("appIds") String appIds)
       throws IOException {
     boolean isBlack = true;
