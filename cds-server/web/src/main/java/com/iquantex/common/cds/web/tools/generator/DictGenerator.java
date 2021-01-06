@@ -37,14 +37,14 @@ public class DictGenerator {
     log.info("进入list方法");
     List<DictDataBeanPO> rs = new ArrayList<>();
 
-    List<String> appIdsArr = Arrays.asList(appIds.split(","));
+    String[] appIdsArr = appIds.split(",");
 
     for (String appId : appIdsArr) {
-      rs.addAll(sysDictDataService.selectForDownload("%" + appId + "%"));
+      rs.addAll(sysDictDataService.selectForDownload(appId));
     }
 
     log.info("导出功能，查询到的数据条数为：" + rs.size());
-    if (Objects.isNull(rs) || CollectionUtils.isEmpty(rs)) {
+    if (CollectionUtils.isEmpty(rs)) {
       return null;
     } else {
       List<DictDataBeanPO> beans = JSON.parseArray(JSON.toJSONString(rs), DictDataBeanPO.class);
