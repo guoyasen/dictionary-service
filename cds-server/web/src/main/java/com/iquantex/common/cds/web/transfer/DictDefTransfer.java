@@ -26,7 +26,7 @@ public class DictDefTransfer {
         .forEach(
             dict -> {
               DictDataDefOutDTO outDTO = new DictDataDefOutDTO();
-              outDTO.setSysDictDataId(dict.getSysDictDataId());
+              outDTO.setDictId(dict.getDictId());
               outDTO.setEnName(dict.getEnName());
               outDTO.setId(dict.getId());
               outDTO.setName(dict.getName());

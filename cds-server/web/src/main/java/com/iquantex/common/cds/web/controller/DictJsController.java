@@ -1,18 +1,16 @@
 package com.iquantex.common.cds.web.controller;
 
-import com.iquantex.common.cds.web.dto.DictDownloadInDTO;
 import com.iquantex.common.cds.web.service.DictJsService;
 import java.io.IOException;
 import java.util.Arrays;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /** Created by leo on 2017/6/8. */
 @Controller
@@ -27,12 +25,12 @@ public class DictJsController {
   public static final String BACK_FILE_NAME = "DictConstants.java";
 
   @RequestMapping("/front/download")
-  public ResponseEntity<byte[]> frontDownload(@RequestBody @Valid DictDownloadInDTO param)
+  public ResponseEntity<byte[]> frontDownload(@RequestParam("appId") String appId)
       throws IOException {
     boolean isBlack = false;
     String charsetName = "UTF-8";
     String fileName = new String(FRONT_FILE_NAME.getBytes(charsetName), charsetName);
-    String content = service.getContent(param.getAppId(), isBlack);
+    String content = service.getContent(appId, isBlack);
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentDispositionFormData("attachment", fileName);
@@ -44,12 +42,12 @@ public class DictJsController {
   }
 
   @RequestMapping("/back/download")
-  public ResponseEntity<byte[]> backDownload(@RequestBody @Valid DictDownloadInDTO param)
+  public ResponseEntity<byte[]> backDownload(@RequestParam("appId") String appId)
       throws IOException {
     boolean isBlack = true;
     String charsetName = "UTF-8";
     String fileName = new String(BACK_FILE_NAME.getBytes(charsetName), charsetName);
-    String content = service.getContent(param.getAppId(), isBlack);
+    String content = service.getContent(appId, isBlack);
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentDispositionFormData("attachment", fileName);

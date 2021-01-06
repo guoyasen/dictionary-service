@@ -1,0 +1,1 @@
+alter table sys_dict_data_def change column sys_dict_data_id dict_id varchar(32);

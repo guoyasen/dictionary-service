@@ -58,7 +58,7 @@ public class SysDictDataController {
    * @return
    */
   @DeleteMapping("/defs/{id}")
-  public Response deleteDictDataDef(@PathVariable Long id) {
+  public Response deleteDictDataDef(@PathVariable String id) {
     service.deleteDictDataDef(id);
     return Response.ok(null, "删除字典子项成功");
   }

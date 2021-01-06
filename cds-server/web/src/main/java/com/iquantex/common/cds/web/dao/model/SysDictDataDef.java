@@ -27,8 +27,8 @@ public class SysDictDataDef implements Serializable {
   @TableId(value = "id")
   private String id;
 
-  @TableField("sys_dict_data_id")
-  private String sysDictDataId;
+  @TableField("dict_id")
+  private String dictId;
 
   @TableField("value")
   private String value;

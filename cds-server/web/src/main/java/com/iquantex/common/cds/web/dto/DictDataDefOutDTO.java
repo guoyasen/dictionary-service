@@ -16,7 +16,7 @@ public class DictDataDefOutDTO {
   private String id;
 
   @ApiModelProperty(value = "字典项ID")
-  private String sysDictDataId;
+  private String dictId;
 
   @ApiModelProperty(value = "字典值")
   private String value;

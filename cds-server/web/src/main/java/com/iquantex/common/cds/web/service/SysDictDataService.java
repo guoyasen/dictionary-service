@@ -14,7 +14,7 @@ public interface SysDictDataService {
 
   void deleteDictData(String dictKey);
 
-  void deleteDictDataDef(long id);
+  void deleteDictDataDef(String id);
 
   void updateDictDataDef(Integer id, UpdateDictDataDefDTO inParam);
 

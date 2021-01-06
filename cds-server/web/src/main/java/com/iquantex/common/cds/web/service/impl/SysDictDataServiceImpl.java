@@ -95,7 +95,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
       SysDictDataDef dictDataDef = new SysDictDataDef();
       BeanUtils.copyProperties(prop, dictDataDef);
       dictDataDef.setId(String.valueOf(dictDateDefId));
-      dictDataDef.setSysDictDataId(dictDataId);
+      dictDataDef.setDictId(dictDataId);
 
       dictDataDefDao.insert(dictDataDef);
     }
@@ -155,7 +155,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     if (!dictDataDef.getValue().equals(inParam.getValue())) {
       QueryWrapper<SysDictDataDef> wrapper = new QueryWrapper<>();
       wrapper
-          .eq(SysDictDataDef.SYS_DICT_DATA_ID, dictDataDef.getSysDictDataId())
+          .eq(SysDictDataDef.SYS_DICT_DATA_ID, dictDataDef.getDictId())
           .eq(SysDictDataDef.VALUE, inParam.getValue());
       int count = dictDataDefDao.selectCount(wrapper);
       if (count > 0) {
@@ -196,15 +196,15 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 
   @Transactional
   @Override
-  public void deleteDictDataDef(long id) {
+  public void deleteDictDataDef(String id) {
     SysDictDataDef dictDataDef = dictDataDefDao.selectById(id);
     if (null == dictDataDef) {
       throw new AppException(CdsDictErrorCode.CDSDICT0008);
     }
-    SysDictData sysDictData = dao.selectById(dictDataDef.getSysDictDataId());
+    SysDictData sysDictData = dao.selectById(dictDataDef.getDictId());
     // 判断数据字典子项是否存在，如果不存在那么不进行删除唯一子字典操作
     QueryWrapper<SysDictDataDef> wrapper = new QueryWrapper<>();
-    wrapper.eq(SysDictDataDef.SYS_DICT_DATA_ID, dictDataDef.getSysDictDataId());
+    wrapper.eq(SysDictDataDef.SYS_DICT_DATA_ID, dictDataDef.getDictId());
     List<SysDictDataDef> sysDictDataDefList = dictDataDefDao.selectList(wrapper);
     if (!sysDictDataDefList.isEmpty() && sysDictDataDefList.size() == 1) {
       throw new AppException(CdsDictErrorCode.CDSDICT0006, sysDictData.getDictKey());
