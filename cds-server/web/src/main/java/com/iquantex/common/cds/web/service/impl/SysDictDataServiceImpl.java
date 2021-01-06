@@ -145,7 +145,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
    */
   @Override
   @Valid
-  public void updateDictDataDef(Integer id, UpdateDictDataDefDTO inParam) {
+  public void updateDictDataDef(String id, UpdateDictDataDefDTO inParam) {
     SysDictDataDef dictDataDef = dictDataDefDao.selectById(id);
     if (null == dictDataDef) {
       throw new AppException(CdsDictErrorCode.CDSDICT0004, id);

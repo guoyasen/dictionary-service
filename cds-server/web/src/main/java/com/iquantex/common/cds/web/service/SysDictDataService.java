@@ -16,7 +16,7 @@ public interface SysDictDataService {
 
   void deleteDictDataDef(String id);
 
-  void updateDictDataDef(Integer id, UpdateDictDataDefDTO inParam);
+  void updateDictDataDef(String id, UpdateDictDataDefDTO inParam);
 
   List<DictDataBeanPO> selectForDownload(String appId);
 }
