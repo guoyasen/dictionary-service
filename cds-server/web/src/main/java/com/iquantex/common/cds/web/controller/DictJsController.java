@@ -25,12 +25,12 @@ public class DictJsController {
   public static final String BACK_FILE_NAME = "DictConstants.java";
 
   @RequestMapping("/front/download")
-  public ResponseEntity<byte[]> frontDownload(@RequestParam("appIds") String appId)
+  public ResponseEntity<byte[]> frontDownload(@RequestParam("appIds") String appIds)
       throws IOException {
     boolean isBlack = false;
     String charsetName = "UTF-8";
     String fileName = new String(FRONT_FILE_NAME.getBytes(charsetName), charsetName);
-    String content = service.getContent(appId, isBlack);
+    String content = service.getContent(appIds, isBlack);
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentDispositionFormData("attachment", fileName);
@@ -42,12 +42,12 @@ public class DictJsController {
   }
 
   @RequestMapping("/back/download")
-  public ResponseEntity<byte[]> backDownload(@RequestParam("appIds") String appId)
+  public ResponseEntity<byte[]> backDownload(@RequestParam("appIds") String appIds)
       throws IOException {
     boolean isBlack = true;
     String charsetName = "UTF-8";
     String fileName = new String(BACK_FILE_NAME.getBytes(charsetName), charsetName);
-    String content = service.getContent(appId, isBlack);
+    String content = service.getContent(appIds, isBlack);
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentDispositionFormData("attachment", fileName);
