@@ -25,6 +25,10 @@ spring:
             - Path=/cds-web/**
           filters:
             - CookieTokenRelay=
+        - id: portal-server
+            uri: http://portal-gateway.dev.bj.iquantex.com
+            predicates:
+            - Path=/portal-server/**
       discovery:
         locator:
           enabled: false

@@ -7,15 +7,15 @@ package com.iquantex.common.cds.web.errorcode;
  * @description: 示例
  * @date 2020-12-16
  */
-public enum CdsPsnErrorCode implements ErrorCode {
-  // 人员已存在
-  CDSPSN0001("人员%s已存在"),
-  // 人员不存在
-  CDSPSN0002("人员%s不存在");
+public enum CdsDictJsErrorCode implements ErrorCode {
+  // 获取字典JS内容失败
+  CDSDICTJS0001("获取字典JS内容失败"),
+  // 没有所属应用字典
+  CDSDICTJS0002("没有所属应用为【%s】的字典值");
 
   private String remark;
 
-  CdsPsnErrorCode(String remark) {
+  CdsDictJsErrorCode(String remark) {
     this.remark = remark;
   }
 
