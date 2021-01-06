@@ -25,7 +25,7 @@ public class DictJsController {
   public static final String BACK_FILE_NAME = "DictConstants.java";
 
   @RequestMapping("/front/download")
-  public ResponseEntity<byte[]> frontDownload(@RequestParam("appId") String appId)
+  public ResponseEntity<byte[]> frontDownload(@RequestParam("appIds") String appId)
       throws IOException {
     boolean isBlack = false;
     String charsetName = "UTF-8";
@@ -42,7 +42,7 @@ public class DictJsController {
   }
 
   @RequestMapping("/back/download")
-  public ResponseEntity<byte[]> backDownload(@RequestParam("appId") String appId)
+  public ResponseEntity<byte[]> backDownload(@RequestParam("appIds") String appId)
       throws IOException {
     boolean isBlack = true;
     String charsetName = "UTF-8";
