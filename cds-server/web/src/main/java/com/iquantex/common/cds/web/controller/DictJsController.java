@@ -1,6 +1,6 @@
 package com.iquantex.common.cds.web.controller;
 
-import com.iquantex.common.cds.web.service.DictJsService;
+import com.iquantex.common.cds.web.service.DictService;
 import java.io.IOException;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/sys_dict_data")
 public class DictJsController {
-  @Autowired private DictJsService service;
+  @Autowired private DictService service;
 
   /** 前端导出文件名 */
   public static final String FRONT_FILE_NAME = "index.js";
