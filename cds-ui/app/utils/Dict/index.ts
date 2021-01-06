@@ -15,36 +15,6 @@ export const DICTDATA = {
       name: "数值型"
     }
   ],
-  cds_app_id: [
-    {
-      id:'cds',
-      name:'全局'
-    },
-    {
-      id:'portal',
-      name:'portal'
-    },
-    {
-      id:'boi',
-      name:'boi'
-    },
-    {
-      id:'cmd',
-      name:'cmd'
-    },
-    {
-      id:'rme',
-      name:'rme'
-    },
-    {
-      id:'sor',
-      name:'sor'
-    },
-    {
-      id:'cds',
-      name:'cds'
-    },
-  ]
 };
 
 export const DICT = {
