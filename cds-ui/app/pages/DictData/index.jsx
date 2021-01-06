@@ -2,12 +2,14 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { AgGrid, AButton, AButtonGroup, Modal, Download, Aa } from 'quantex-design';
 import { Button, Popconfirm } from 'antd';
-import { DICTDATA } from 'utils';
+import { DICTDATA, getDictDataMappings } from 'utils';
 import ChildTable from './ChildTable';
 import BatchDictForm from './form/BatchDict';
 import ExportFileForm from './form/ExportFile';
 import Store from './Store';
 import UIState from './UIState';
+
+const dictValueTypeMappings = getDictDataMappings(DICTDATA.cds_dict_value_type);
 
 @observer
 class DictDataComponent extends React.Component {
@@ -29,6 +31,11 @@ class DictDataComponent extends React.Component {
         component: 'Input',
       },
       {
+        name: 'dictName$like',
+        label: '字典名称',
+        component: 'Input',
+      },
+      {
         name: 'dictValueType',
         label: '字典值类型',
         component: 'Select',
@@ -42,7 +49,12 @@ class DictDataComponent extends React.Component {
         component: 'Select',
         props: {
           dictSite: 'portal-server',
-          dictUrl: '/api/v1/applications',
+          dictUrl: '/api/v1/applications/list',
+          dictParams: { $query: false },
+          dictConfig: {
+            optionIdProp: 'appId',
+            optionNameProp: 'appId'
+          }
         },
       },
     ],
@@ -67,21 +79,21 @@ class DictDataComponent extends React.Component {
         {
           headerName: '字典值类型',
           field: 'dictValueType',
-          filter: 'agSetColumnFilter', 
-          valueGetter: ({ data }) => {
-            let findValue = DICTDATA.cds_dict_value_type.find(item => item.id === data.dictValueType);
-            return findValue.name;
-          },
+          filter: 'agSetColumnFilter',
+          refData: dictValueTypeMappings,
+          // valueGetter: ({ data }) => {
+          //   let findValue = DICTDATA.cds_dict_value_type.find(item => item.id === data.dictValueType);
+          //   return findValue.name;
+          // },
         },
         {
           headerName: '所属应用',
           field: 'appId',
-          filter: 'agSetColumnFilter', // to-do 精确筛选下拉列表数据不展示
+          filter: 'agSetColumnFilter',
         },
         {
           headerName: '创建用户',
           field: 'creatorIdName',
-          // filter: 'agSetColumnFilter',
         },
         {
           headerName: '创建时间',
@@ -91,7 +103,6 @@ class DictDataComponent extends React.Component {
         {
           headerName: '修改用户',
           field: 'modifierIdName',
-          // filter: 'agSetColumnFilter',
         },
         {
           headerName: '修改时间',
@@ -142,6 +153,7 @@ class DictDataComponent extends React.Component {
       },
       paginationPageSize: 20,
       pagination: true,
+      // rowModelType: 'clientSide',
       rowModelType: 'serverSide',
 
       // 子表格

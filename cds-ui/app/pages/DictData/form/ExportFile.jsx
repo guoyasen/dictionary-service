@@ -34,7 +34,12 @@ class ExportFileFormComponent extends Component {
                     allowClear={true}
                     mode='multiple'
                     dictSite='portal-server'
-                    dictUrl='/api/v1/applications'
+                    dictUrl='/api/v1/applications/list'
+                    dictParams={{ $query: false }}
+                    dictConfig={{
+                      optionIdProp: 'appId',
+                      optionNameProp: 'appId'
+                    }}
                   >
                   </Select>
                 )
