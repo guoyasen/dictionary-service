@@ -85,7 +85,7 @@ public class SysDictDataController {
    */
   @PutMapping("/defs/{id}")
   public Response updateDictDataDef(
-      @PathVariable Integer id, @RequestBody UpdateDictDataDefDTO inParam) {
+      @PathVariable String id, @RequestBody UpdateDictDataDefDTO inParam) {
     service.updateDictDataDef(id, inParam);
     return Response.ok(null, "修改字典子项成功");
   }
