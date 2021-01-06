@@ -52,18 +52,6 @@ public class SysDictDataController {
   }
 
   /**
-   * 删除数据字典子项
-   *
-   * @param id
-   * @return
-   */
-  @DeleteMapping("/defs/{id}")
-  public Response deleteDictDataDef(@PathVariable String id) {
-    service.deleteDictDataDef(id);
-    return Response.ok(null, "删除字典子项成功");
-  }
-
-  /**
    * 修改
    *
    * @param id
@@ -78,19 +66,6 @@ public class SysDictDataController {
   }
 
   /**
-   * 修改数据字典子项
-   *
-   * @param id
-   * @return
-   */
-  @PutMapping("/defs/{id}")
-  public Response updateDictDataDef(
-      @PathVariable String id, @RequestBody UpdateDictDataDefDTO inParam) {
-    service.updateDictDataDef(id, inParam);
-    return Response.ok(null, "修改字典子项成功");
-  }
-
-  /**
    * 删除数据字典
    *
    * @param id
@@ -100,5 +75,31 @@ public class SysDictDataController {
   public Response deleteDictData(@PathVariable String id) {
     service.deleteDictData(id);
     return Response.ok(null, "删除字典成功");
+  }
+
+  /**
+   * 删除数据字典子项
+   *
+   * @param id
+   * @return
+   */
+  @DeleteMapping("/defs/{id}")
+  public Response deleteDictDataDef(@PathVariable String id) {
+    service.deleteDictDataDef(id);
+    return Response.ok(null, "删除字典子项成功");
+  }
+
+  /**
+   * 修改数据字典子项
+   *
+   * @param id
+   * @return
+   */
+  @PutMapping("/defs/{id}")
+  public Response updateDictDataDef(
+      @PathVariable String id, @RequestBody UpdateDictDataDefDTO inParam) {
+    log.info("修改字典子项入口，子项ID为：" + id);
+    service.updateDictDataDef(id, inParam);
+    return Response.ok(null, "修改字典子项成功");
   }
 }
