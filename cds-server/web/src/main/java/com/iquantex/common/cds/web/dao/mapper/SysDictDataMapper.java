@@ -15,6 +15,6 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface SysDictDataMapper extends BaseMapper<SysDictData> {
   @Select(
-      "SELECT a.dict_key,b.value,b.name,b.en_name,a.dict_value_type,a.remark,a.app_id,a.dict_name,a.id as dict_data_id,b.id as dict_data_def_id from SYS_DICT_DATA a left join SYS_DICT_DATA_DEF b on a.id = b.dict_id where app_id like #{appId}")
+      "SELECT a.dict_key,b.value,b.name,b.en_name,a.dict_value_type,a.remark,a.app_id,a.dict_name,a.id as dict_data_id,b.id as dict_data_def_id from sys_dict_data a left join sys_dict_data_def b on a.id = b.dict_id where app_id = #{appId}")
   List<DictDataBeanPO> getSysDictData(@Param("appId") String appId);
 }
