@@ -80,7 +80,7 @@ class ChildTableComponent extends React.Component {
       api: 'cds-web',
       url: '/sys_dict_data_def',
       params: {
-        id: this.props.data.id,
+        dictId: this.props.data.id,
       },
       config: {
         loading: false,

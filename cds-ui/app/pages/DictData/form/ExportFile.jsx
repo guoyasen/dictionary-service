@@ -33,7 +33,9 @@ class ExportFileFormComponent extends Component {
                   <Select
                     allowClear={true}
                     mode='multiple'
-                    dictData={DICTDATA.cds_app_id}>
+                    dictSite='portal-server'
+                    dictUrl='/api/v1/applications'
+                  >
                   </Select>
                 )
               }

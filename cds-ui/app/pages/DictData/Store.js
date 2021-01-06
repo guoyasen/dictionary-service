@@ -32,10 +32,10 @@ class Store {
    * @param id
    * @param cb
    */
-  fetchDictItem = (id, cb) => {
+  fetchDictItem = (dictId, cb) => {
     this.api
       .query('/sys_dict_data_def', {
-        id,
+        dictId,
         orderBy: 'id',
       })
       .then(res => {
