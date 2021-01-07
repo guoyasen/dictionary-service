@@ -9,8 +9,8 @@ export const DICTDATA = {
     ${data.appIdAndDictKey}: [
     <#list data.fieldByDictKeys as jsFieldByDictKey>
         {
-            id:${jsFieldByDictKey.string?string("'"+ jsFieldByDictKey.value + "'", jsFieldByDictKey.value)},
-            name:'${jsFieldByDictKey.name}'
+            id: ${jsFieldByDictKey.string?string("'"+ jsFieldByDictKey.value + "'", jsFieldByDictKey.value)},
+            name: '${jsFieldByDictKey.name}'
         },
 </#list>
     ],
