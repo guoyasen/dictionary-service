@@ -6,14 +6,14 @@
 export const DICTDATA = {
 <#list list as data>
 <#if data.appIdAndDictKey??>
-    ${data.appIdAndDictKey}: [
-    <#list data.fieldByDictKeys as jsFieldByDictKey>
-        {
-            id: ${jsFieldByDictKey.string?string("'"+ jsFieldByDictKey.value + "'", jsFieldByDictKey.value)},
-            name: '${jsFieldByDictKey.name}'
-        },
+  ${data.appIdAndDictKey}: [
+  <#list data.fieldByDictKeys as jsFieldByDictKey>
+    {
+      id: ${jsFieldByDictKey.string?string("'"+ jsFieldByDictKey.value + "'", jsFieldByDictKey.value)},
+      name: '${jsFieldByDictKey.name}'
+    },
 </#list>
-    ],
+  ],
 
 </#if>
 </#list>
