@@ -181,7 +181,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
   @Override
   public void deleteDictData(String dictDataId) {
     QueryWrapper<SysDictData> wrapper = new QueryWrapper<>();
-    wrapper.eq(SysDictData.ID, Long.valueOf(dictDataId));
+    wrapper.eq(SysDictData.ID, dictDataId);
     SysDictData dictData = dao.selectOne(wrapper);
 
     if (null == dictData) {
@@ -193,7 +193,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
 
     // 删除子项
     QueryWrapper<SysDictDataDef> defWrapper = new QueryWrapper<>();
-    defWrapper.eq(SysDictDataDef.DICT_ID, Long.valueOf(dictDataId));
+    defWrapper.eq(SysDictDataDef.DICT_ID, dictDataId);
     dictDataDefDao.delete(defWrapper);
   }
 
