@@ -15,7 +15,6 @@ import com.iquantex.common.cds.web.errorcode.CdsDictErrorCode;
 import com.iquantex.common.cds.web.exception.AppException;
 import com.iquantex.common.cds.web.jwt.SysUserSession;
 import com.iquantex.common.cds.web.service.SysDictDataService;
-import com.iquantex.common.cds.web.util.IdGenerator;
 import java.time.LocalDateTime;
 import java.util.*;
 import javax.validation.Valid;
@@ -67,7 +66,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     dictData.setCreateTime(LocalDateTime.now());
     dao.insert(dictData);
     // 添加值信息
-    insertDictDef(props, dictKey, dictDateId);
+    insertDictDef(props, dictDateId, dictDateId);
     return;
   }
 
@@ -78,24 +77,22 @@ public class SysDictDataServiceImpl implements SysDictDataService {
       }
   }*/
 
-  private void insertDictDef(List<DictDataDefDTO> props, String dictKey, String dictDataId) {
+  private void insertDictDef(List<DictDataDefDTO> props, String dictDateId, String dictDataId) {
     Map<String, DictDataDefDTO> dictDataDataInPropMap = new HashMap<>();
     if (Objects.isNull(props) || props.isEmpty()) {
       throw new AppException(CdsDictErrorCode.CDSDICT0009);
     }
-    IdGenerator idWorker = new IdGenerator(0, 0);
     for (DictDataDefDTO prop : props) {
       String key = prop.getValue();
-      Long dictDateDefId = idWorker.nextId();
       if (dictDataDataInPropMap.containsKey(key)) {
-        throw new AppException(CdsDictErrorCode.CDSDICT0002, dictKey, key);
+        throw new AppException(CdsDictErrorCode.CDSDICT0002, dictDateId, key);
       } else {
         dictDataDataInPropMap.put(key, prop);
       }
 
       SysDictDataDef dictDataDef = new SysDictDataDef();
       BeanUtils.copyProperties(prop, dictDataDef);
-      dictDataDef.setId(String.valueOf(dictDateDefId));
+      dictDataDef.setId(dictDateId + "_" + prop.getValue());
       dictDataDef.setDictId(dictDataId);
 
       dictDataDefDao.insert(dictDataDef);
@@ -135,7 +132,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     defWrapper.eq(SysDictDataDef.DICT_ID, dictData.getId());
     dictDataDefDao.delete(defWrapper);
     // 子项入库
-    insertDictDef(props, dictData.getDictKey(), dictData.getId());
+    insertDictDef(props, dictData.getId(), dictData.getId());
   }
 
   /**
