@@ -2,14 +2,12 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { AgGrid, AButton, AButtonGroup, Modal, Download, Aa } from 'quantex-design';
 import { Button, Popconfirm } from 'antd';
-import { DICTDATA, getDictDataMappings } from 'utils';
+import { DICTDATA, mapRefData, extractValues } from 'utils';
 import ChildTable from './ChildTable';
 import BatchDictForm from './form/BatchDict';
 import ExportFileForm from './form/ExportFile';
 import Store from './Store';
 import UIState from './UIState';
-
-const dictValueTypeMappings = getDictDataMappings(DICTDATA.cds_dict_value_type);
 
 @observer
 class DictDataComponent extends React.Component {
@@ -22,7 +20,7 @@ class DictDataComponent extends React.Component {
     url: '/sys_dict_data',
   });
 
-   // 搜索表单配置
+  // 搜索表单配置
   formConfig = {
     fields: [
       {
@@ -60,82 +58,85 @@ class DictDataComponent extends React.Component {
     ],
   };
 
+  @mapRefData
+  getColumnDefs() {
+    return [
+      {
+        headerName: '字典key',
+        field: 'dictKey',
+        cellRenderer: 'agGroupCellRenderer',
+      },
+      {
+        headerName: '字典名称',
+        field: 'dictName',
+      },
+      {
+        headerName: '字典值类型',
+        field: 'dictValueType',
+        filter: 'agSetColumnFilter',
+        refData: DICTDATA.cds_dict_value_type,
+        filterParams: {
+          values: extractValues(DICTDATA.cds_dict_value_type) // 如果是 serverSide 模式， 需要提供 filter 数据
+        }
+      },
+      {
+        headerName: '所属应用',
+        field: 'appId',
+      },
+      {
+        headerName: '创建用户',
+        field: 'creatorId',
+      },
+      {
+        headerName: '创建时间',
+        field: 'createTime',
+        type: 'datetime'
+      },
+      {
+        headerName: '修改用户',
+        field: 'modifierId',
+      },
+      {
+        headerName: '修改时间',
+        field: 'modifyTime',
+        type: 'datetime'
+      },
+      {
+        headerName: '备注',
+        field: 'remark',
+      },
+      {
+        headerName: '操作',
+        colId: 'operation',
+        filter: false, // 禁用过滤
+        sortable: false, // 禁用排序
+        pinned: 'right',
+        cellRendererFramework: ({ data = {} }) => {
+          return (
+            <AButtonGroup>
+              <Aa onClick={() => {
+                this.showBatchDictForm(data);
+              }} >编辑</Aa>
+              <Popconfirm title='是否确认删除该字典?'
+                onConfirm={() => {
+                  this.handleDeleteDict(data);
+                }}>
+                <Aa className='text-danger'>删除</Aa>
+              </Popconfirm>
+            </AButtonGroup>
+          );
+        },
+      }
+    ];
+  }
+
   tableConfig = {
     tableId: AgGrid.Table.ID.DictData_index,
     onTableReady: tableStore => {
       this.store.setTableStore(tableStore);
     },
     props: {
-      columnDefs: [
-        {
-          headerName: '字典key',
-          field: 'dictKey',
-          cellRenderer: 'agGroupCellRenderer',
-        },
-        {
-          headerName: '字典名称',
-          field: 'dictName',
-        },
-        {
-          headerName: '字典值类型',
-          field: 'dictValueType',
-          filter: 'agSetColumnFilter',
-          refData: dictValueTypeMappings,
-          // valueGetter: ({ data }) => {
-          //   let findValue = DICTDATA.cds_dict_value_type.find(item => item.id === data.dictValueType);
-          //   return findValue.name;
-          // },
-        },
-        {
-          headerName: '所属应用',
-          field: 'appId',
-          filter: 'agSetColumnFilter',
-        },
-        {
-          headerName: '创建用户',
-          field: 'creatorIdName',
-        },
-        {
-          headerName: '创建时间',
-          field: 'createTime',
-          type: 'datetime'
-        },
-        {
-          headerName: '修改用户',
-          field: 'modifierIdName',
-        },
-        {
-          headerName: '修改时间',
-          field: 'modifyTime',
-          type: 'datetime'
-        },
-        {
-          headerName: '备注',
-          field: 'remark',
-        },
-        {
-          headerName: '操作',
-          colId: 'operation',
-          filter: false, // 禁用过滤
-          sortable: false, // 禁用排序
-          pinned: 'right',
-          cellRendererFramework: ({ data = {} }) => {
-            return (
-              <AButtonGroup>
-                <Aa onClick={() => {
-                  this.showBatchDictForm(data);
-                }} >编辑</Aa>
-                <Popconfirm title='是否确认删除该字典?'
-                  onConfirm={() => {
-                    this.handleDeleteDict(data);
-                  }}>
-                  <Aa className='text-danger'>删除</Aa>
-                </Popconfirm>
-              </AButtonGroup>
-            );
-          },
-        }
-      ],
+      columnDefs: this.getColumnDefs(),
       onFirstDataRendered: (params) => {
         params.api.sizeColumnsToFit();
       },
@@ -155,6 +156,7 @@ class DictDataComponent extends React.Component {
       pagination: true,
       // rowModelType: 'clientSide',
       rowModelType: 'serverSide',
+      serverSideStoreType: 'partial',
 
       // 子表格
       masterDetail: true,
@@ -163,7 +165,6 @@ class DictDataComponent extends React.Component {
       rowData: [],
     },
   };
-
 
   // 显示'添加字典'表单
   showBatchAddDictForm = () => {
@@ -185,7 +186,7 @@ class DictDataComponent extends React.Component {
      * @param dataSource 初始化编辑表单的数据
      */
     const showForm = dataSource => {
-      const bar = <BatchDictForm dataSource={dataSource} store={this.store}  uiState={this.uiState} type="edit" />;
+      const bar = <BatchDictForm dataSource={dataSource} store={this.store} uiState={this.uiState} type="edit" />;
       this.modal.openForm("编辑字典", bar);
     };
     /**
@@ -227,6 +228,7 @@ class DictDataComponent extends React.Component {
   }
 
   render() {
+
     return (
       <div className={'h-100' + ' layout-spacer'}>
         <AgGrid.SearchFormTable
@@ -235,7 +237,7 @@ class DictDataComponent extends React.Component {
           tableConfig={this.tableConfig}
         >
           <AButton className="m-r-10" type='primary' size='small' onClick={this.showBatchAddDictForm}>新增</AButton>
-          <AButton type='primary' size='small' onClick={this.exportFile}>导出</AButton>       
+          <AButton type='primary' size='small' onClick={this.exportFile}>导出</AButton>
         </AgGrid.SearchFormTable>
         <Modal {...this.modal.props} />
       </div>
