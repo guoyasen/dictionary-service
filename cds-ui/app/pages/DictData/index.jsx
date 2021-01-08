@@ -34,7 +34,7 @@ class DictDataComponent extends React.Component {
         component: 'Input',
       },
       {
-        name: 'appId',
+        name: 'appId$in',
         label: '所属应用',
         component: 'Select',
         props: {
