@@ -36,25 +36,26 @@ class DictDataComponent extends React.Component {
         component: 'Input',
       },
       {
-        name: 'dictValueType',
-        label: '字典值类型',
-        component: 'Select',
-        props: {
-          dictData: DICTDATA.cds_dict_value_type,
-        },
-      },
-      {
-        name: 'appId',
+        name: 'appId$in',
         label: '所属应用',
         component: 'Select',
         props: {
           dictSite: 'portal-server',
           dictUrl: '/api/v1/applications/list',
           dictParams: { $query: false },
+          mode: 'multiple',
           dictConfig: {
             optionIdProp: 'appId',
             optionNameProp: 'appId'
           }
+        },
+      },
+      {
+        name: 'dictValueType',
+        label: '字典值类型',
+        component: 'Select',
+        props: {
+          dictData: DICTDATA.cds_dict_value_type,
         },
       },
     ],

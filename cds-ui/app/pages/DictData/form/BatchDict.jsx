@@ -154,6 +154,7 @@ class BatchDictFormComponent extends Component {
             <FormItem label="字典值类型">
               {getFieldDecorator('dictValueType', {
                 rules: [{ required: true, message: '必填' }],
+                initialValue: DICT.cds_dict_value_type_string,
               })(
                 <Select
                   allowClear={true}
@@ -178,6 +179,14 @@ class BatchDictFormComponent extends Component {
                 >
                 </Select>
               )}
+            </FormItem>
+          </div>
+
+          <div className="form-row-multi-items">
+            <FormItem label="备注">
+              {
+                getFieldDecorator('remark')(<Input.TextArea rows={1} />)
+              }
             </FormItem>
           </div>
 
