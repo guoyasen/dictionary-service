@@ -5,6 +5,9 @@
 */
 export const DICTDATA = {
 <#list list as data>
+  <#if data.comment??>
+  // ${data.comment}
+  </#if>
 <#if data.appIdAndDictKey??>
   ${data.appIdAndDictKey}: [
   <#list data.fieldByDictKeys as jsFieldByDictKey>
