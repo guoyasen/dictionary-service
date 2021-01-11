@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { AgGrid, AButton, AButtonGroup, Modal, Download, Aa } from 'quantex-design';
 import { Button, Popconfirm } from 'antd';
-import { DICTDATA, mapRefData, extractValues } from 'utils';
+import { DICTDATA, mapAgRefData, extractValues } from 'utils';
 import ChildTable from './ChildTable';
 import BatchDictForm from './form/BatchDict';
 import ExportFileForm from './form/ExportFile';
@@ -59,7 +59,7 @@ class DictDataComponent extends React.Component {
     ],
   };
 
-  @mapRefData
+  @mapAgRefData
   getColumnDefs() {
     return [
       {
