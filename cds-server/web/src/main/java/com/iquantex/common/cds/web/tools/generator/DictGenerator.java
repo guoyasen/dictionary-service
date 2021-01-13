@@ -80,7 +80,8 @@ public class DictGenerator {
     String name =
         null == dictDataBean.getEnName() ? dictDataBean.getValue() : dictDataBean.getEnName();
     field.setIdentifier(dictDataBean.getAppId() + "_" + dictDataBean.getDictKey() + "_" + name);
-    field.setIdentifierCapitalization((dictDataBean.getAppId() + "_" + dictDataBean.getDictKey() + "_" + name).toUpperCase());
+    field.setIdentifierCapitalization(
+        (dictDataBean.getAppId() + "_" + dictDataBean.getDictKey() + "_" + name).toUpperCase());
     field.setValue(dictDataBean.getValue());
     field.setAnnotation(dictDataBean.getName());
     field.setString((new Integer(2)).equals(dictDataBean.getDictValueType()));
