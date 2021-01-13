@@ -9,6 +9,7 @@ public class FieldPO {
   private String value;
   private String annotation;
   private boolean string;
+  private String identifierCapitalization;
 
   public FieldPO() {}
 
@@ -42,5 +43,13 @@ public class FieldPO {
 
   public void setString(boolean string) {
     this.string = string;
+  }
+
+  public String getIdentifierCapitalization() {
+    return identifierCapitalization;
+  }
+
+  public void setIdentifierCapitalization(String identifierCapitalization) {
+    this.identifierCapitalization = identifierCapitalization;
   }
 }

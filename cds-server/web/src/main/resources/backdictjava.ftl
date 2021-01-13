@@ -9,7 +9,7 @@ public class DictConstants {
   // ${data.comment}
     </#if>
     <#list data.fields as field>
-    public static final ${field.string?string("String", "int")} ${field.identifier} = ${field.string?string("\""+ field.value + "\"", field.value)}; // ${field.annotation}
+    public static final ${field.string?string("String", "Integer")} ${field.identifierCapitalization} = ${field.string?string("\""+ field.value + "\"", field.value)}; // ${field.annotation}
 
     </#list>
 
