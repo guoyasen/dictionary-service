@@ -15,7 +15,7 @@ class BatchDictFormComponent extends Component {
    * 提交表单
    * @param e
    */
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const { form, store, type, dataSource } = this.props;
     form.validateFields((err, formData) => {
@@ -24,7 +24,7 @@ class BatchDictFormComponent extends Component {
         formData.appId = formData.appId.toString();
         formData.dicts = compact(formData.dicts);
         let params = Util.buildFormData(formData);
-        if (type === 'add') {
+        if (type === 'add' || type === 'copy') {
           store.addDict(params);
         } else {
           params.id = dataSource.id;
@@ -52,14 +52,14 @@ class BatchDictFormComponent extends Component {
       }
     });
 
-    return uiState.dictItemKeys.slice().map((item) => {
+    return uiState.dictItemKeys.slice().map(item => {
       const key = item.key;
       // 获取对象数据结构
       const dictValueName = `dicts[${key}].value`; // 字典值
       const dictLabelName = `dicts[${key}].name`; // 字典值翻译
       const dictLabelEnName = `dicts[${key}].enName`; // 字典值英文名称
       const iconProps = {
-        style: length === 1 ? {} : newItemLayout
+        style: length === 1 ? {} : newItemLayout,
       };
       // 若标记已被删除,则不渲染
       if (item.removed) return null;
@@ -67,43 +67,45 @@ class BatchDictFormComponent extends Component {
         <div key={key} className="form-row-multi-items">
           <FormItem label="字典值">
             {getFieldDecorator(dictValueName, {
-              rules: [{
-                required: true,
-                whitespace: true,
-                message: "必填",
-              }],
-            })(
-              <Input size="small" type="text" {...iconProps} />
-            )}
-
+              rules: [
+                {
+                  required: true,
+                  whitespace: true,
+                  message: '必填',
+                },
+              ],
+            })(<Input size="small" type="text" {...iconProps} />)}
           </FormItem>
           <FormItem label="字典值翻译">
             {getFieldDecorator(dictLabelName, {
-              rules: [{
-                required: true,
-                whitespace: true,
-                message: "必填",
-              }],
-            })(
-              <Input size="small" type="text" {...iconProps} />
-            )}
+              rules: [
+                {
+                  required: true,
+                  whitespace: true,
+                  message: '必填',
+                },
+              ],
+            })(<Input size="small" type="text" {...iconProps} />)}
           </FormItem>
           <FormItem label="字典英文值">
             {getFieldDecorator(dictLabelEnName, {
-              rules: [{
-                required: true,
-                whitespace: true,
-                message: "必填",
-              }],
-            })(
-              <Input size="small" type="text" {...iconProps} />
+              rules: [
+                {
+                  required: true,
+                  whitespace: true,
+                  message: '必填',
+                },
+              ],
+            })(<Input size="small" type="text" {...iconProps} />)}
+            {length === 1 ? null : (
+              <Icon
+                className="dynamic-delete-button"
+                type="minus-circle"
+                onClick={() => {
+                  uiState.removeDictItem(key);
+                }}
+              />
             )}
-            {
-              length === 1 ? null :
-                <Icon className="dynamic-delete-button"
-                  type="minus-circle"
-                  onClick={() => { uiState.removeDictItem(key); }} />
-            }
           </FormItem>
         </div>
       );
@@ -117,11 +119,11 @@ class BatchDictFormComponent extends Component {
     // 新添加项样式
     const newItemLayout = {
       width: '85%',
-      marginRight: 6
+      marginRight: 6,
     };
 
     return {
-      newItemLayout: newItemLayout
+      newItemLayout: newItemLayout,
     };
   }
 
@@ -134,19 +136,15 @@ class BatchDictFormComponent extends Component {
         <div className="form-main-content">
           <div className="form-row-multi-items">
             <FormItem label="字典key">
-              {
-                getFieldDecorator('dictKey', {
-                  rules: [{ required: true, whitespace: true, message: '必填' }]
-                })(
-                  <Input size="small" type="text" disabled={type === 'edit'} />
-                )
-              }
+              {getFieldDecorator('dictKey', {
+                rules: [{ required: true, whitespace: true, message: '必填' }],
+              })(<Input size="small" type="text" disabled={type === 'edit'} />)}
             </FormItem>
 
             <FormItem label="字典名称">
-              {getFieldDecorator('dictName', { rules: [{ required: true, whitespace: true, message: '必填' }] })(
-                <Input size="small" type="text" />
-              )}
+              {getFieldDecorator('dictName', {
+                rules: [{ required: true, whitespace: true, message: '必填' }],
+              })(<Input size="small" type="text" />)}
             </FormItem>
           </div>
 
@@ -155,49 +153,42 @@ class BatchDictFormComponent extends Component {
               {getFieldDecorator('dictValueType', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: DICT.cds_dict_value_type_string,
-              })(
-                <Select
-                  allowClear={true}
-                  dictData={DICTDATA.cds_dict_value_type}>
-                </Select>
-              )}
+              })(<Select allowClear={true} dictData={DICTDATA.cds_dict_value_type}></Select>)}
             </FormItem>
             <FormItem label="所属应用">
               {getFieldDecorator('appId', {
-                rules: [{ required: true, message: '必填' }]
+                rules: [{ required: true, message: '必填' }],
               })(
                 <Select
                   allowClear={true}
                   disabled={type === 'edit'}
-                  dictSite='portal-server'
-                  dictUrl='/api/v1/applications/list'
+                  dictSite="portal-server"
+                  dictUrl="/api/v1/applications/list"
                   dictParams={{ $query: false }}
                   dictConfig={{
                     optionIdProp: 'appId',
-                    optionNameProp: 'appId'
-                  }}
-                >
-                </Select>
+                    optionNameProp: 'appId',
+                  }}></Select>
               )}
             </FormItem>
           </div>
 
           <div className="form-row-multi-items">
             <FormItem label="备注">
-              {
-                getFieldDecorator('remark')(<Input.TextArea rows={1} />)
-              }
+              {getFieldDecorator('remark')(<Input.TextArea rows={1} />)}
             </FormItem>
           </div>
 
-          <div className='m-b-8'>
+          <div className="m-b-8">
             <a onClick={uiState.addDictItem}>添加字典子项</a>
-          </div>         
+          </div>
           {this.renderDictGroup()}
         </div>
 
         <div className="form-btn-wrapper">
-          <Button size="small" type="primary" htmlType="submit">提交</Button>
+          <Button size="small" type="primary" htmlType="submit">
+            提交
+          </Button>
         </div>
       </Form>
     );
@@ -207,7 +198,7 @@ class BatchDictFormComponent extends Component {
 const BatchDictForm = Form.create({
   mapPropsToFields(props) {
     return Util.mapPropsToFields(props.dataSource);
-  }
+  },
 })(BatchDictFormComponent);
 
 export default BatchDictForm;
