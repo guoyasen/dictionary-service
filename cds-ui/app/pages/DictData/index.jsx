@@ -44,8 +44,8 @@ class DictDataComponent extends React.Component {
           mode: 'multiple',
           dictConfig: {
             optionIdProp: 'appId',
-            optionNameProp: 'appId'
-          }
+            optionNameProp: 'appId',
+          },
         },
       },
       {
@@ -77,8 +77,8 @@ class DictDataComponent extends React.Component {
         filter: 'agSetColumnFilter',
         refData: DICTDATA.cds_dict_value_type,
         filterParams: {
-          values: extractValues(DICTDATA.cds_dict_value_type) // 如果是 serverSide 模式， 需要提供 filter 数据
-        }
+          values: extractValues(DICTDATA.cds_dict_value_type), // 如果是 serverSide 模式， 需要提供 filter 数据
+        },
       },
       {
         headerName: '所属应用',
@@ -91,7 +91,7 @@ class DictDataComponent extends React.Component {
       {
         headerName: '创建时间',
         field: 'createTime',
-        type: 'datetime'
+        type: 'datetime',
       },
       {
         headerName: '修改用户',
@@ -100,7 +100,7 @@ class DictDataComponent extends React.Component {
       {
         headerName: '修改时间',
         field: 'modifyTime',
-        type: 'datetime'
+        type: 'datetime',
       },
       {
         headerName: '备注',
@@ -115,19 +115,29 @@ class DictDataComponent extends React.Component {
         cellRendererFramework: ({ data = {} }) => {
           return (
             <AButtonGroup>
-              <Aa onClick={() => {
-                this.showBatchDictForm(data);
-              }} >编辑</Aa>
-              <Popconfirm title='是否确认删除该字典?'
+              <Aa
+                onClick={() => {
+                  this.showBatchDictForm(data);
+                }}>
+                编辑
+              </Aa>
+              <Aa
+                onClick={() => {
+                  this.copyDict(data);
+                }}>
+                复制
+              </Aa>
+              <Popconfirm
+                title="是否确认删除该字典?"
                 onConfirm={() => {
                   this.handleDeleteDict(data);
                 }}>
-                <Aa className='text-danger'>删除</Aa>
+                <Aa className="text-danger">删除</Aa>
               </Popconfirm>
             </AButtonGroup>
           );
         },
-      }
+      },
     ];
   }
 
@@ -138,7 +148,7 @@ class DictDataComponent extends React.Component {
     },
     props: {
       columnDefs: this.getColumnDefs(),
-      onFirstDataRendered: (params) => {
+      onFirstDataRendered: params => {
         params.api.sizeColumnsToFit();
       },
       // 列默认配置
@@ -174,6 +184,10 @@ class DictDataComponent extends React.Component {
     this.modal.openForm('添加字典', bar);
   };
 
+  copyDict = data => {
+    this.showBatchDictForm(data, 'copy');
+  };
+
   /**
    * 批量编辑
    * 1. 判断当前记录是否存在子项数据(dictItem), 若没有则去请求子项数据
@@ -181,14 +195,21 @@ class DictDataComponent extends React.Component {
    * @param data
    * @returns {XML}
    */
-  showBatchDictForm = (data) => {
+  showBatchDictForm = (data, type = 'edit') => {
     /**
      * 展开编辑表单
      * @param dataSource 初始化编辑表单的数据
      */
     const showForm = dataSource => {
-      const bar = <BatchDictForm dataSource={dataSource} store={this.store} uiState={this.uiState} type="edit" />;
-      this.modal.openForm("编辑字典", bar);
+      const bar = (
+        <BatchDictForm
+          dataSource={dataSource}
+          store={this.store}
+          uiState={this.uiState}
+          type={type}
+        />
+      );
+      this.modal.openForm('编辑字典', bar);
     };
     /**
      * 初始化子项 key
@@ -212,33 +233,38 @@ class DictDataComponent extends React.Component {
       }
       showForm(data);
     });
-
   };
 
   /**
-  * 删除字典
-  * @param data
-  */
+   * 删除字典
+   * @param data
+   */
   handleDeleteDict = data => {
     this.store.deleteDict(data.id);
   };
 
   exportFile = () => {
     const bar = <ExportFileForm store={this.store} />;
-    this.modal.openForm("导出文件", bar);
-  }
+    this.modal.openForm('导出文件', bar);
+  };
 
   render() {
-
     return (
       <div className={'h-100' + ' layout-spacer'}>
         <AgGrid.SearchFormTable
           searchApi={this.searchApi}
           formConfig={this.formConfig}
-          tableConfig={this.tableConfig}
-        >
-          <AButton className="m-r-10" type='primary' size='small' onClick={this.showBatchAddDictForm}>新增</AButton>
-          <AButton type='primary' size='small' onClick={this.exportFile}>导出</AButton>
+          tableConfig={this.tableConfig}>
+          <AButton
+            className="m-r-10"
+            type="primary"
+            size="small"
+            onClick={this.showBatchAddDictForm}>
+            新增
+          </AButton>
+          <AButton type="primary" size="small" onClick={this.exportFile}>
+            导出
+          </AButton>
         </AgGrid.SearchFormTable>
         <Modal {...this.modal.props} />
       </div>
